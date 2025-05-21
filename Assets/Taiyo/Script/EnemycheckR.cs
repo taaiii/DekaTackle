@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemycheckR : MonoBehaviour
 {
     private GameObject player;
-    public float inputRange = 5f;
+    public float inputRange = 10f;
 
     void Start()
     {
