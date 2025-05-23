@@ -229,4 +229,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb25487fc7ac1a468ed51ec6889680b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputRange: 10
+  inputRange: 1
+  eventNumber: 2

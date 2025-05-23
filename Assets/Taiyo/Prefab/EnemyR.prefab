@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e254622f044584390d5493ef1befe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.005
+  moveSpeedR: 1
 --- !u!114 &809952833401933107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,4 +229,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447e6e7345e7cef4ea5d3ff1644e690a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputRange: 10
+  inputRange: 1
+  eventNumber: 2

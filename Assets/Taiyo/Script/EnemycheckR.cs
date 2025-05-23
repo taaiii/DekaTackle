@@ -3,7 +3,8 @@ using UnityEngine;
 public class EnemycheckR : MonoBehaviour
 {
     private GameObject player;
-    public float inputRange = 10f;
+    public float inputRange = 1f;
+    public int eventNumber = 2;
 
     void Start()
     {
@@ -21,18 +22,34 @@ public class EnemycheckR : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    if (player == null) return;
+        if (player == null) return;
 
-    Vector3 direction = player.transform.position - transform.position;
-    float distance = direction.magnitude;
+        Vector3 direction = player.transform.position - transform.position;
+        float distance = direction.magnitude;
 
-    if (distance <= inputRange)
-    {
-        if (direction.x < 0)
-            if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Debug.Log("距離 : " + distance + " 範囲 : " + inputRange);
+
+            if (distance <= inputRange)
             {
-                PointCounter.Point++;
-                Destroy(gameObject);
+                if (direction.x < 0) // プレイヤーが左にいるときだけ成功
+                {
+                    PointCounter.Point++;
+                    Destroy(gameObject);
+                    Debug.Log("成功");
+                }
+            }
+            else
+            {
+                if (Random.Range(0, eventNumber) == 0)
+                {
+                    Debug.Log("誰もいなかった");
+                }
+                else
+                {
+                    Debug.Log("一般人にぶつかった");
+                }
             }
         }
     }
