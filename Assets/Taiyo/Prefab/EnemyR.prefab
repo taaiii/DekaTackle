@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3331335198889757983}
   - component: {fileID: 199253089435421955}
   - component: {fileID: 218396463764514711}
-  - component: {fileID: 809952833401933107}
+  - component: {fileID: 4842434034344190864}
   m_Layer: 0
   m_Name: EnemyR
   m_TagString: EnemyR
@@ -217,17 +217,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeedR: 1
---- !u!114 &809952833401933107
+--- !u!114 &4842434034344190864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020372635050774527}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 447e6e7345e7cef4ea5d3ff1644e690a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b2a2b1e0e18b3945929181d156afdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputRange: 1
+  inputRange: 8
   eventNumber: 2

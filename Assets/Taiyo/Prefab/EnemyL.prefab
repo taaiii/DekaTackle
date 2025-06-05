@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4287383232008139195}
   - component: {fileID: 37371537042334423}
   - component: {fileID: 4856761876394450063}
-  - component: {fileID: 6234027247403164756}
+  - component: {fileID: 9032898304843140931}
   m_Layer: 0
   m_Name: EnemyL
   m_TagString: EnemyL
@@ -217,17 +217,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
---- !u!114 &6234027247403164756
+--- !u!114 &9032898304843140931
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618706488094100452}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efb25487fc7ac1a468ed51ec6889680b, type: 3}
+  m_Script: {fileID: 11500000, guid: ee71833f56f764249b32bcd1904f9e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputRange: 1
+  inputRange: 8
   eventNumber: 2
+  plstates: {fileID: 0}
