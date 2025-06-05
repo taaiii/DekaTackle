@@ -10,7 +10,7 @@ public class EnemyAttackManager : MonoBehaviour
     public PlayerStates playerStates;
 
     private GameObject player;
-    private Coroutine checkKeyCoroutine = null; // コルーチン制御用
+    private Coroutine checkKeyCoroutine = null;
 
     void Start()
     {
@@ -19,15 +19,18 @@ public class EnemyAttackManager : MonoBehaviour
 
     void Update()
     {
-        // isCollisionがfalseのときのみ攻撃可能
-        if (Input.GetKeyUp(KeyCode.A) && playerStates.isCollision == false)
+        // isCollision = false の時のみ攻撃入力を受け付ける
+        if (!playerStates.isCollision)
         {
-            ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
-        }
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
+            }
 
-        if (Input.GetKeyUp(KeyCode.D) && playerStates.isCollision == false)
-        {
-            ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag);
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag);
+            }
         }
     }
 
@@ -43,18 +46,18 @@ public class EnemyAttackManager : MonoBehaviour
         {
             if (inputDist <= oppositeDist)
             {
-                // 成功（近い敵を正しく攻撃）
+                // 成功：正しい敵を攻撃
                 playerStates.isCollision = false;
                 HandleAttack(inputEnemy);
                 return;
             }
         }
 
-        // ミス（遠い敵を攻撃、または敵がいない）
+        // ミス：遠い敵 or 敵なし
         playerStates.isCollision = true;
-        Debug.Log("ミス：遠い敵を攻撃したか敵がいなかった");
+        Debug.Log("ミス：遠い敵を攻撃 or 敵がいない");
 
-        // コルーチンがまだ起動していなければスタート
+        // コルーチンが動いていなければ開始
         if (checkKeyCoroutine == null)
         {
             checkKeyCoroutine = StartCoroutine(CheckKeyPressCoroutine());
@@ -71,6 +74,7 @@ public class EnemyAttackManager : MonoBehaviour
         {
             Vector3 toEnemy = enemy.transform.position - player.transform.position;
 
+            // 方向が逆ならスキップ
             if (Vector3.Dot(toEnemy.normalized, direction) < 0.5f) continue;
 
             float dist = toEnemy.magnitude;
@@ -100,18 +104,19 @@ public class EnemyAttackManager : MonoBehaviour
 
         while (playerStates.isCollision)
         {
-            // f と j を同時押ししているかチェック
-            if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J))
+            // 片方を押している間にもう片方を押せば解除
+            if ((Input.GetKey(KeyCode.F) && Input.GetKeyDown(KeyCode.J)) ||
+                (Input.GetKey(KeyCode.J) && Input.GetKeyDown(KeyCode.F)))
             {
                 playerStates.isCollision = false;
-                Debug.Log("FとJを同時押し → isCollision = false");
+                Debug.Log("成功：FまたはJを押しながらもう片方を押した");
                 break;
             }
 
             yield return null;
         }
 
-        checkKeyCoroutine = null; // 終了したらリセット
+        checkKeyCoroutine = null;
         Debug.Log("CheckKeyPressCoroutine: 終了");
     }
 }
