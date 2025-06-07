@@ -93,7 +93,7 @@ public class EnemyAttackManager : MonoBehaviour
         if (enemy != null)
         {
             Debug.Log($"“G‚ð“|‚µ‚½: {enemy.name}");
-            PointCounter.Point++;
+            PointCounter.Instance.Point++;
             Destroy(enemy);
         }
     }

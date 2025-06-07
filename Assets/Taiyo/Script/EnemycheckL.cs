@@ -36,7 +36,7 @@ public class EnemycheckL : MonoBehaviour
             {
                 if (direction.x > 0) // プレイヤーが左にいるときだけ成功
                 {
-                    PointCounter.Point++;
+                    PointCounter.Instance.Point++;
                     Destroy(gameObject);
                     Debug.Log("成功");
                 }
