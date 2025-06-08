@@ -965,7 +965,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1118068645}
-  - component: {fileID: 1118068644}
+  - component: {fileID: 1118068646}
   m_Layer: 0
   m_Name: EnemySpowner
   m_TagString: Untagged
@@ -973,27 +973,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1118068644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1118068643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c74811a345961cc42b08b9632f3ece3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  silentEnemyL: {fileID: 2020372635050774527, guid: 8c05002e81c9e684c99e99bce400d215, type: 3}
-  silentEnemyR: {fileID: 2020372635050774527, guid: 68af03be7c60cc041845b831527c6531, type: 3}
-  walkEnemyL: {fileID: 1618706488094100452, guid: fce47b6b515ed30488d3861806673d3c, type: 3}
-  walkEnemyR: {fileID: 2020372635050774527, guid: 36ae7280ee0bead4faacb72e2e6bafc1, type: 3}
-  dushEnemyL: {fileID: 2020372635050774527, guid: d8dd64b6ace6bb74181ae0886dcdb614, type: 3}
-  dushEnemyR: {fileID: 2020372635050774527, guid: ea0b1bd0f55240a4b8ba458e1062c6da, type: 3}
-  truckEnemyL: {fileID: 2020372635050774527, guid: 71698dd773899604cb417ac4b11d94a3, type: 3}
-  truckEnemyR: {fileID: 2020372635050774527, guid: 00acfd9a0befb854b8c62c997dc6a639, type: 3}
-  SpawnInterval: 5
 --- !u!4 &1118068645
 Transform:
   m_ObjectHideFlags: 0
@@ -1009,6 +988,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1118068646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118068643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74811a345961cc42b08b9632f3ece3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  silentEnemyL: {fileID: 1618706488094100452, guid: 70d79145892aa704994480eb752d1be6, type: 3}
+  silentEnemyR: {fileID: 2020372635050774527, guid: f0d5a69fd87dc1644b9ecea272f0c939, type: 3}
+  walkEnemyL: {fileID: 1618706488094100452, guid: fce47b6b515ed30488d3861806673d3c, type: 3}
+  walkEnemyR: {fileID: 2020372635050774527, guid: 36ae7280ee0bead4faacb72e2e6bafc1, type: 3}
+  dushEnemyL: {fileID: 1618706488094100452, guid: 32986a260dd8b7d44a8c13035ae82fcd, type: 3}
+  dushEnemyR: {fileID: 2020372635050774527, guid: 9a824652029a6654ea1fbc2ae624d54e, type: 3}
+  truckEnemyL: {fileID: 1618706488094100452, guid: 8ab32caa2dcf6c8438d84ca325047b56, type: 3}
+  truckEnemyR: {fileID: 2020372635050774527, guid: 7dad92766361d5e48b02fbedee969400, type: 3}
+  SpawnInterval: 5
 --- !u!1001 &1202826375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1731,6 +1731,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2041706871}
+  - component: {fileID: 2041706872}
   m_Layer: 0
   m_Name: PointCounter
   m_TagString: Untagged
@@ -1753,6 +1754,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2041706872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041706870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37a13491b8437c4f9d868e1f664b8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Point: 0
 --- !u!4 &3069864577834472742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2561771319770427627, guid: 36ae7280ee0bead4faacb72e2e6bafc1, type: 3}

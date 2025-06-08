@@ -72,13 +72,13 @@ public class EnemyManager : MonoBehaviour
         if (isRightDirection == 0)
         {
             Debug.Log("”E‚Ñ‘« : ¶");
-            Instantiate(silentEnemyL);
+            Instantiate(silentEnemyL, new Vector3(-10f,0f,0f), Quaternion.identity);
         }
         //¶‘¤‚Éì¬
         else
         {
             Debug.Log("”E‚Ñ‘« : ‰E");
-            Instantiate(silentEnemyR);
+            Instantiate(silentEnemyR, new Vector3(10f, 0f, 0f), Quaternion.identity);
         }
     }
     void CreateWalk()
@@ -87,13 +87,13 @@ public class EnemyManager : MonoBehaviour
         if (isRightDirection == 0)
         {
             Debug.Log("•à‚« : ¶");
-            Instantiate(silentEnemyL);
+            Instantiate(silentEnemyL, new Vector3(-10f, 0f, 0f), Quaternion.identity);
         }
         //¶‘¤‚Éì¬
         else
         {
             Debug.Log("•à‚« : ‰E");
-            Instantiate(silentEnemyR);
+            Instantiate(silentEnemyR, new Vector3(10f, 0f, 0f), Quaternion.identity);
         }
     }
     void CreateDush()
@@ -102,13 +102,13 @@ public class EnemyManager : MonoBehaviour
         if (isRightDirection == 0)
         {
             Debug.Log("‘–‚è : ¶");
-            Instantiate(silentEnemyL);
+            Instantiate(silentEnemyL, new Vector3(-10f, 0f, 0f), Quaternion.identity);
         }
         //¶‘¤‚Éì¬
         else
         {
             Debug.Log("‘–‚è : ‰E");
-            Instantiate(silentEnemyR);
+            Instantiate(silentEnemyR, new Vector3(10f, 0f, 0f), Quaternion.identity);
         }
 
     }
