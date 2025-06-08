@@ -102,15 +102,30 @@ public class EnemyAttackManager : MonoBehaviour
     {
         Debug.Log("CheckKeyPressCoroutine: 開始");
 
+        float holdTime = 0f; // 押し続けている時間のカウント
+
         while (playerStates.isCollision)
         {
-            // 片方を押している間にもう片方を押せば解除
-            if ((Input.GetKey(KeyCode.F) && Input.GetKeyDown(KeyCode.J)) ||
-                (Input.GetKey(KeyCode.J) && Input.GetKeyDown(KeyCode.F)))
+            // 両方が押されている間は時間を加算
+            if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J))
             {
-                playerStates.isCollision = false;
-                Debug.Log("成功：FまたはJを押しながらもう片方を押した");
-                break;
+                holdTime += Time.deltaTime;
+
+                if (holdTime >= 3f)
+                {
+                    playerStates.isCollision = false;
+                    Debug.Log("成功：FとJを3秒間同時に押した");
+                    break;
+                }
+            }
+            else
+            {
+                // どちらかが離されたらリセット
+                if (holdTime > 0f)
+                {
+                    Debug.Log("キーが離されたのでカウントリセット");
+                }
+                holdTime = 0f;
             }
 
             yield return null;
@@ -119,4 +134,5 @@ public class EnemyAttackManager : MonoBehaviour
         checkKeyCoroutine = null;
         Debug.Log("CheckKeyPressCoroutine: 終了");
     }
+
 }
