@@ -13,7 +13,7 @@ public class Counttext : MonoBehaviour
 
     void Update()
     {
-       
+        UpdateText();
     }
 
     // テキスト更新用のメソッド
