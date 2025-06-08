@@ -8,18 +8,44 @@ public class EnemyAttackManager : MonoBehaviour
     public string rightEnemyTag = "EnemyR";
 
     public PlayerStates playerStates;
+    public SEPlayer sePlayer;
     public bool isSorry = false;
+
+    public GameObject tackleSuccesseImage;
+    public GameObject tackleFailureImage;
+
+    public GameObject tackleSound;
+
+    public float DrawimageTime = 0.5f;
 
     private GameObject player;
     private Coroutine checkKeyCoroutine = null;
+    private float successeTimer = 0;
+    //private float FailTimer = 0;
 
     void Start()
     {
+        tackleSuccesseImage.SetActive(false);
+        tackleFailureImage.SetActive(false);
         player = GameObject.FindWithTag("Player");
+
+        successeTimer = 0;
+        //FailTimer = 0;
     }
 
     void Update()
     {
+        if (tackleSuccesseImage == true)
+        {
+            successeTimer += Time.deltaTime;
+            //tackleSuccesseImage.transform.position = new Vector3( successeTimer * 3, 0, 0 );
+            if (successeTimer > DrawimageTime)
+            {
+                tackleSuccesseImage.SetActive(false);
+                successeTimer = 0;
+            }
+        }
+
         // isCollision = false ‚Ì‚Ì‚İUŒ‚“ü—Í‚ğó‚¯•t‚¯‚é
         if (!playerStates.isCollision)
         {
@@ -48,6 +74,7 @@ public class EnemyAttackManager : MonoBehaviour
             if (inputDist <= oppositeDist)
             {
                 // ¬Œ÷F³‚µ‚¢“G‚ğUŒ‚
+                OnTackleSuccess();
                 playerStates.isCollision = false;
                 HandleAttack(inputEnemy);
                 return;
@@ -93,11 +120,19 @@ public class EnemyAttackManager : MonoBehaviour
     {
         if (enemy != null)
         {
+            tackleSuccesseImage.SetActive(true);
             Debug.Log($"“G‚ğ“|‚µ‚½: {enemy.name}");
             PointCounter.Instance.Point++;
             Destroy(enemy);
         }
     }
+    // —áFEnemyAttackManager.cs ‚Ì’†
+    void OnTackleSuccess()
+    {
+        // ƒ_ƒ[ƒWˆ—‚È‚Çc
+        sePlayer.PlayTackleSE(); // SE‚ğ–Â‚ç‚·
+    }
+
 
     private IEnumerator CheckKeyPressCoroutine()
     {

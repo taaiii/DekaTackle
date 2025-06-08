@@ -6,6 +6,11 @@ public class PointCounter : MonoBehaviour
 {
     public static PointCounter Instance;
     public int Point = 0;
+
+    private void Start()
+    {
+        Point = 0;
+    }
     private void Awake()
     {
         if(Instance == null)
