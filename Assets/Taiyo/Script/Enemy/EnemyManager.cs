@@ -17,9 +17,12 @@ public class EnemyManager : MonoBehaviour
     public GameObject truckEnemyL;
     public GameObject truckEnemyR;
 
-    public float SpawnInterval = 5f;
+    public float spawnInterval = 5f;
+    public float fiveSecondSpeedUpRange = 0.3f;
 
     private float timer;
+    private float gameCount = 0;
+
     private int ramdomEnemyNum;    //“G‚Ìƒ‰ƒ“ƒ_ƒ€î•ñ‚ð•Û‘¶ 
     private int isRightDirection; //•ûŒü‚Ìƒ‰ƒ“ƒ_ƒ€î•ñ‚ð•Û‘¶
 
@@ -29,15 +32,24 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer = 0f;
+        timer = 5f;
+        gameCount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
+        gameCount += Time.deltaTime;
 
-        if(timer > SpawnInterval)
+        //‚T•b‚²‚Æ‚É0.3•b‘¬‚­
+        if (gameCount > 5)
+        {
+            SpownSpeedUp();
+            gameCount = 0;
+        }
+
+        if(timer > spawnInterval)
         {
             timer = 0f;
 
@@ -111,5 +123,10 @@ public class EnemyManager : MonoBehaviour
             Instantiate(silentEnemyR, new Vector3(10f, 0f, 0f), Quaternion.identity);
         }
 
+    }
+    void SpownSpeedUp()
+    {
+        //0.3•b‘¬‚­
+        spawnInterval -= fiveSecondSpeedUpRange;
     }
 }
