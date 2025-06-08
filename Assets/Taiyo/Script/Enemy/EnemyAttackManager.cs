@@ -8,6 +8,7 @@ public class EnemyAttackManager : MonoBehaviour
     public string rightEnemyTag = "EnemyR";
 
     public PlayerStates playerStates;
+    public bool isSorry = false;
 
     private GameObject player;
     private Coroutine checkKeyCoroutine = null;
@@ -109,6 +110,7 @@ public class EnemyAttackManager : MonoBehaviour
             // 両方が押されている間は時間を加算
             if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J))
             {
+                isSorry = true;
                 holdTime += Time.deltaTime;
 
                 if (holdTime >= 3f)
@@ -121,6 +123,7 @@ public class EnemyAttackManager : MonoBehaviour
             else
             {
                 // どちらかが離されたらリセット
+                isSorry= false;
                 if (holdTime > 0f)
                 {
                     Debug.Log("キーが離されたのでカウントリセット");
@@ -130,7 +133,7 @@ public class EnemyAttackManager : MonoBehaviour
 
             yield return null;
         }
-
+        isSorry = false;
         checkKeyCoroutine = null;
         Debug.Log("CheckKeyPressCoroutine: 終了");
     }
