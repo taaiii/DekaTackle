@@ -1852,6 +1852,59 @@ Transform:
   - {fileID: 3069864577834472742}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1906768383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1906768385}
+  - component: {fileID: 1906768384}
+  m_Layer: 0
+  m_Name: EnemySpowner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1906768384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906768383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74811a345961cc42b08b9632f3ece3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  silentEnemyL: {fileID: 1618706488094100452, guid: 70d79145892aa704994480eb752d1be6, type: 3}
+  silentEnemyR: {fileID: 2020372635050774527, guid: f0d5a69fd87dc1644b9ecea272f0c939, type: 3}
+  walkEnemyL: {fileID: 1618706488094100452, guid: fce47b6b515ed30488d3861806673d3c, type: 3}
+  walkEnemyR: {fileID: 2020372635050774527, guid: 36ae7280ee0bead4faacb72e2e6bafc1, type: 3}
+  dushEnemyL: {fileID: 1618706488094100452, guid: 32986a260dd8b7d44a8c13035ae82fcd, type: 3}
+  dushEnemyR: {fileID: 2020372635050774527, guid: 9a824652029a6654ea1fbc2ae624d54e, type: 3}
+  truckEnemyL: {fileID: 1618706488094100452, guid: 8ab32caa2dcf6c8438d84ca325047b56, type: 3}
+  truckEnemyR: {fileID: 2020372635050774527, guid: 7dad92766361d5e48b02fbedee969400, type: 3}
+  SpawnInterval: 5
+--- !u!4 &1906768385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906768383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2041706870
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,3 +2213,4 @@ SceneRoots:
   - {fileID: 336291238}
   - {fileID: 1693897142}
   - {fileID: 1587106144}
+  - {fileID: 1906768385}
