@@ -3,7 +3,15 @@ guid: c74811a345961cc42b08b9632f3ece3b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - silentEnemyL: {fileID: 2020372635050774527, guid: 8c05002e81c9e684c99e99bce400d215, type: 3}
+  - silentEnemyR: {fileID: 2020372635050774527, guid: 68af03be7c60cc041845b831527c6531, type: 3}
+  - walkEnemyL: {fileID: 1618706488094100452, guid: fce47b6b515ed30488d3861806673d3c, type: 3}
+  - walkEnemyR: {fileID: 2020372635050774527, guid: 36ae7280ee0bead4faacb72e2e6bafc1, type: 3}
+  - dushEnemyL: {fileID: 2020372635050774527, guid: d8dd64b6ace6bb74181ae0886dcdb614, type: 3}
+  - dushEnemyR: {fileID: 2020372635050774527, guid: ea0b1bd0f55240a4b8ba458e1062c6da, type: 3}
+  - truckEnemyL: {fileID: 2020372635050774527, guid: 71698dd773899604cb417ac4b11d94a3, type: 3}
+  - truckEnemyR: {fileID: 2020372635050774527, guid: 00acfd9a0befb854b8c62c997dc6a639, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
