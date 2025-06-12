@@ -10,6 +10,7 @@ public class EnemyAttackManager : MonoBehaviour
     public PlayerStates playerStates;
     public SEPlayer sePlayer;
     public bool isSorry = false;
+    private ShakeCamera shakeCamera;
 
     public GameObject tackleSuccesseImage;
     public GameObject tackleFailureImage;
@@ -25,6 +26,18 @@ public class EnemyAttackManager : MonoBehaviour
 
     void Start()
     {
+        tackleSuccesseImage.SetActive(false);
+        tackleFailureImage.SetActive(false);
+        player = GameObject.FindWithTag("Player");
+
+        // 追加：CameraShakeを取得
+        shakeCamera = Camera.main.GetComponent<ShakeCamera>();
+        if (shakeCamera == null)
+        {
+            Debug.LogWarning("ShakeCameraコンポーネントがMainCameraにありません！");
+        }
+
+        successeTimer = 0;
         tackleSuccesseImage.SetActive(false);
         tackleFailureImage.SetActive(false);
         player = GameObject.FindWithTag("Player");
@@ -52,12 +65,24 @@ public class EnemyAttackManager : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.A))
             {
                 ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
+
+                // 画面揺らす（揺れが設定されていれば）
+                if (shakeCamera != null)
+                {
+                    shakeCamera.TriggerShake(0.3f, 0.15f);
+                }
             }
 
             if (Input.GetKeyUp(KeyCode.D))
             {
                 ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag);
+
+                if (shakeCamera != null)
+                {
+                    shakeCamera.TriggerShake(0.3f, 0.15f);
+                }
             }
+
         }
     }
 
