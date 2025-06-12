@@ -173,7 +173,7 @@ public class EnemyAttackManager : MonoBehaviour
                 isSorry = true;
                 holdTime += Time.deltaTime;
 
-                if (holdTime >= 3f)
+                if (holdTime >= 2f)
                 {
                     playerStates.isCollision = false;
                     Debug.Log("¬Œ÷FF‚ÆJ‚ğ3•bŠÔ“¯‚É‰Ÿ‚µ‚½");

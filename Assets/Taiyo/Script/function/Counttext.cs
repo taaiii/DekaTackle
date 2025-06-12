@@ -19,6 +19,6 @@ public class Counttext : MonoBehaviour
     // テキスト更新用のメソッド
     void UpdateText()
     {
-        textMeshProUGUI.text = "Point: " + PointCounter.Instance.Point.ToString();
+        textMeshProUGUI.text = /*"Point: " + */PointCounter.Instance.Point.ToString();
     }
 }
