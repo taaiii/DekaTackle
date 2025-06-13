@@ -64,7 +64,6 @@ public class EnemyManager : MonoBehaviour
                 case 1: CreateWalk();   break; //•à‚«
                 case 2: CreateDush();   break; //‘–‚è@
             }
-
         }
     }
 

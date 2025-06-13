@@ -9,7 +9,7 @@ public class PointCounter : MonoBehaviour
 
     private void Start()
     {
-        PointCounter.Instance.Point = 0;
+        Point = 0;
     }
     private void Awake()
     {
@@ -23,5 +23,4 @@ public class PointCounter : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }
