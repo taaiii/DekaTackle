@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneChange : MonoBehaviour
+public class ExitTitle : MonoBehaviour
 {
-    public string nextScene = "Main Scene2" ; // 遷移先のシーン名
+    public string nextScene = "Main Scene2"; // 遷移先のシーン名
 
     private void Update()
     {
