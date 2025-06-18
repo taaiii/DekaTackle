@@ -13,8 +13,17 @@ public class SceneChange : MonoBehaviour
         }
     }
 
+    public void Start()
+    {
+    }
+
     public void LoadNextScene()
     {
+        if (PointCounter.Instance != null)
+        {
+            //‰Šú‰»
+            PointCounter.Instance.Point = 0;
+        }
         SceneManager.LoadScene(nextScene);
     }
 }
