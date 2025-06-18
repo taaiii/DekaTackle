@@ -19,6 +19,8 @@ public class EnemyAttackManager : MonoBehaviour
 
     public float DrawimageTime = 0.5f;
 
+    public int inFever = 0;
+
     private GameObject player;
     private Coroutine checkKeyCoroutine = null;
     private float successeTimer = 0;
@@ -44,6 +46,7 @@ public class EnemyAttackManager : MonoBehaviour
 
         successeTimer = 0;
         //FailTimer = 0;
+        StartCoroutine(DelayedProcessCoroutine());
     }
 
     void Update()
@@ -62,27 +65,44 @@ public class EnemyAttackManager : MonoBehaviour
         // isCollision = false ‚Ì‚Ì‚İUŒ‚“ü—Í‚ğó‚¯•t‚¯‚é
         if (!playerStates.isCollision)
         {
-            if (Input.GetKeyUp(KeyCode.A))
+            if (inFever == 0)
             {
-                ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
-
-                // ‰æ–Ê—h‚ç‚·i—h‚ê‚ªİ’è‚³‚ê‚Ä‚¢‚ê‚Îj
-                if (shakeCamera != null)
+                if (Input.GetKeyUp(KeyCode.A))
                 {
-                    shakeCamera.TriggerShake(0.3f, 0.15f);
+                    ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
+
+                    // ‰æ–Ê—h‚ç‚·i—h‚ê‚ªİ’è‚³‚ê‚Ä‚¢‚ê‚Îj
+                    if (shakeCamera != null)
+                    {
+                        shakeCamera.TriggerShake(0.3f, 0.15f);
+                    }
+                }
+
+                if (Input.GetKeyUp(KeyCode.D))
+                {
+                    ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag);
+
+                    if (shakeCamera != null)
+                    {
+                        shakeCamera.TriggerShake(0.3f, 0.15f);
+                        
+                    }
+                }
+
+            }
+            else if(inFever == 1)
+            {
+                if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+                {
+                    if (shakeCamera != null)
+                    {
+                        shakeCamera.TriggerShake(0.3f, 0.15f);
+                        OnTackleSuccess();
+                        playerStates.isCollision = false;
+                        PointCounter.Instance.Point++;
+                    }
                 }
             }
-
-            if (Input.GetKeyUp(KeyCode.D))
-            {
-                ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag);
-
-                if (shakeCamera != null)
-                {
-                    shakeCamera.TriggerShake(0.3f, 0.15f);
-                }
-            }
-
         }
     }
 
@@ -198,4 +218,12 @@ public class EnemyAttackManager : MonoBehaviour
         Debug.Log("CheckKeyPressCoroutine: I—¹");
     }
 
+    private IEnumerator DelayedProcessCoroutine()
+    {
+        yield return new WaitForSeconds(60f);
+        inFever = 1;
+
+        yield return new WaitForSeconds(10f);
+        inFever = 2;
+    }
 }
