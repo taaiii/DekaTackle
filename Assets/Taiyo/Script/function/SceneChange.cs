@@ -10,6 +10,11 @@ public class SceneChange : MonoBehaviour
         if (Input.GetKeyDown("d") || Input.GetKeyDown("a"))
         {
             SceneManager.LoadScene(nextScene);
+
+            if (PointCounter.Instance != null)
+            {
+                PointCounter.Instance.Point = 0;
+            }
         }
     }
 
