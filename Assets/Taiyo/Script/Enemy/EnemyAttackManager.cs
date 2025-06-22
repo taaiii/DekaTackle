@@ -3,6 +3,16 @@ using System.Collections;
 
 public class EnemyAttackManager : MonoBehaviour
 {
+    //以下土下座ゲージ用オブジェクトと変数
+    public float scaleSpeed = 2f;               // 拡大スピード
+
+    private float originalYScale;
+    public float waitTime;
+    public float DogezaImagesMaxSize;
+    [SerializeField] private GameObject DogezaImages;
+    [SerializeField] private GameObject MaskImages;
+    [SerializeField] private GameObject KariMiss;
+    //
     public float attackRange = 5f;
     public string leftEnemyTag = "EnemyL";
     public string rightEnemyTag = "EnemyR";
@@ -28,6 +38,7 @@ public class EnemyAttackManager : MonoBehaviour
 
     void Start()
     {
+        originalYScale = transform.localScale.y;//マスクの初期の大きさの保存
         tackleSuccesseImage.SetActive(false);
         tackleFailureImage.SetActive(false);
         player = GameObject.FindWithTag("Player");
@@ -85,12 +96,12 @@ public class EnemyAttackManager : MonoBehaviour
                     if (shakeCamera != null)
                     {
                         shakeCamera.TriggerShake(0.3f, 0.15f);
-                        
+
                     }
                 }
 
             }
-            else if(inFever == 1)
+            else if (inFever == 1)
             {
                 if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
                 {
@@ -184,7 +195,13 @@ public class EnemyAttackManager : MonoBehaviour
         Debug.Log("CheckKeyPressCoroutine: 開始");
 
         float holdTime = 0f; // 押し続けている時間のカウント
-
+        //
+        Vector3 currentScale = MaskImages.transform.localScale;
+        KariMiss.SetActive(true);//仮ミスイメージ登場
+        yield return new WaitForSeconds(waitTime);
+        KariMiss.SetActive(false);
+        DogezaImages.SetActive(true);
+        //
         while (playerStates.isCollision)
         {
             // 両方が押されている間は時間を加算
@@ -192,25 +209,28 @@ public class EnemyAttackManager : MonoBehaviour
             {
                 isSorry = true;
                 holdTime += Time.deltaTime;
-
+                currentScale.y += scaleSpeed * holdTime;
                 if (holdTime >= 2f)
                 {
                     playerStates.isCollision = false;
                     Debug.Log("成功：FとJを3秒間同時に押した");
+                    DogezaImages.SetActive(false);
                     break;
                 }
             }
             else
             {
                 // どちらかが離されたらリセット
-                isSorry= false;
+                isSorry = false;
                 if (holdTime > 0f)
                 {
+
                     Debug.Log("キーが離されたのでカウントリセット");
                 }
+                currentScale.y = originalYScale;
                 holdTime = 0f;
             }
-
+            MaskImages.transform.localScale = currentScale;
             yield return null;
         }
         isSorry = false;
