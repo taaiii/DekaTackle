@@ -1,35 +1,46 @@
 using UnityEngine;
-using TMPro; // TextMeshPro を使うために必要
+using UnityEngine.UI;
 
-public class FeverText : MonoBehaviour
+public class FeverRawImage : MonoBehaviour
 {
-    public GameObject textObject; // 表示させたいTextMeshProオブジェクト
-    public float showDelay = 60f; // 表示までの待ち時間（秒）
-    public float displayDuration = 10f; // 表示しておく時間（秒）
+    [SerializeField] private RawImage rawImage;
 
-    void Start()
+    public float showDelay = 60f;
+    public float displayDuration = 10f;
+
+    void Awake()
     {
-        if (textObject != null)
+        if (rawImage == null)
         {
-            textObject.SetActive(false); // 最初は非表示にしておく
-            StartCoroutine(ShowAndHideText());
-        }
-        else
-        {
-            Debug.LogWarning("textObject が設定されていません！");
+            rawImage = GameObject.Find("RawImageName")?.GetComponent<RawImage>();
+            if (rawImage == null)
+            {
+                Debug.LogWarning("AwakeでRawImage取得失敗");
+            }
         }
     }
-
-    private System.Collections.IEnumerator ShowAndHideText()
+    void OnEnable()
     {
-        yield return new WaitForSeconds(showDelay); // 60秒待つ
+        if (rawImage == null)
+        {
+            Debug.LogWarning("rawImage が設定されていません！");
+            return;
+        }
 
-        textObject.SetActive(true); // 表示
-        Debug.Log("TextMeshPro 表示！");
+        rawImage.enabled = false;
+        StartCoroutine(ShowAndHideRawImage());
+    }
 
-        yield return new WaitForSeconds(displayDuration); // 10秒待つ
+    private System.Collections.IEnumerator ShowAndHideRawImage()
+    {
+        yield return new WaitForSeconds(showDelay);
 
-        textObject.SetActive(false); // 非表示
-        Debug.Log("TextMeshPro 非表示！");
+        rawImage.enabled = true;
+        Debug.Log("RawImage 表示！");
+
+        yield return new WaitForSeconds(displayDuration);
+
+        rawImage.enabled = false;
+        Debug.Log("RawImage 非表示！");
     }
 }
