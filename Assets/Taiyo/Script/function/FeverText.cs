@@ -1,46 +1,66 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class FeverRawImage : MonoBehaviour
 {
-    [SerializeField] private RawImage rawImage;
+    [SerializeField] private List<RawImage> rawImages = new List<RawImage>();
 
     public float showDelay = 60f;
     public float displayDuration = 10f;
 
     void Awake()
     {
-        if (rawImage == null)
+        // 必要に応じて名前で取得（例: シーン内に"RawImage1", "RawImage2"がある想定）
+        if (rawImages.Count == 0)
         {
-            rawImage = GameObject.Find("RawImageName")?.GetComponent<RawImage>();
-            if (rawImage == null)
+            RawImage img1 = GameObject.Find("RawImage1")?.GetComponent<RawImage>();
+            RawImage img2 = GameObject.Find("RawImage2")?.GetComponent<RawImage>();
+
+            if (img1 != null) rawImages.Add(img1);
+            if (img2 != null) rawImages.Add(img2);
+
+            if (rawImages.Count == 0)
             {
                 Debug.LogWarning("AwakeでRawImage取得失敗");
             }
         }
     }
+
     void OnEnable()
     {
-        if (rawImage == null)
+        if (rawImages.Count == 0)
         {
-            Debug.LogWarning("rawImage が設定されていません！");
+            Debug.LogWarning("rawImages が設定されていません！");
             return;
         }
 
-        rawImage.enabled = false;
-        StartCoroutine(ShowAndHideRawImage());
+        // 初期状態で非表示
+        foreach (var img in rawImages)
+        {
+            img.enabled = false;
+        }
+
+        StartCoroutine(ShowAndHideRawImages());
     }
 
-    private System.Collections.IEnumerator ShowAndHideRawImage()
+    private IEnumerator ShowAndHideRawImages()
     {
         yield return new WaitForSeconds(showDelay);
 
-        rawImage.enabled = true;
-        Debug.Log("RawImage 表示！");
+        foreach (var img in rawImages)
+        {
+            img.enabled = true;
+        }
+        Debug.Log("RawImages 表示！");
 
         yield return new WaitForSeconds(displayDuration);
 
-        rawImage.enabled = false;
-        Debug.Log("RawImage 非表示！");
+        foreach (var img in rawImages)
+        {
+            img.enabled = false;
+        }
+        Debug.Log("RawImages 非表示！");
     }
 }
