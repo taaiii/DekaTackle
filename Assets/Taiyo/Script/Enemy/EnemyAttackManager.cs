@@ -212,6 +212,7 @@ public class EnemyAttackManager : MonoBehaviour
                 DogezaImages.SetActive(false);
                 checkKeyCoroutine = null;
                 sePlayer.StopSE();
+                playerStates.isCollision = false;
                 Debug.Log("inFever‚ª1‚É‚È‚Á‚½‚Ì‚Å’†’f");
                 yield break;
             }
