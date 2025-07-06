@@ -669,7 +669,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -7.237915, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -699,8 +699,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -234, y: 112}
-  m_SizeDelta: {x: 1000, y: 83.7771}
+  m_AnchoredPosition: {x: 1.158, y: 127}
+  m_SizeDelta: {x: 1560.3159, y: 83.7771}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &336291236
 GameObject:
@@ -778,6 +778,54 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336291236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &423935655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 423935657}
+  - component: {fileID: 423935656}
+  m_Layer: 0
+  m_Name: TutorialEnemySpowner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &423935656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423935655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa17f2c423ebadb48a67695e9b567a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkEnemyL: {fileID: 1618706488094100452, guid: fce47b6b515ed30488d3861806673d3c, type: 3}
+  walkEnemyR: {fileID: 2020372635050774527, guid: 36ae7280ee0bead4faacb72e2e6bafc1, type: 3}
+  spawnInterval: 5
+  fiveSecondSpeedUpRange: 0.3
+--- !u!4 &423935657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423935655}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -1608,7 +1656,7 @@ Transform:
   m_GameObject: {fileID: 1043628425}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.14, y: -10.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2527,14 +2575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa17f2c423ebadb48a67695e9b567a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  silentEnemyL: {fileID: 1618706488094100452, guid: 70d79145892aa704994480eb752d1be6, type: 3}
-  silentEnemyR: {fileID: 2020372635050774527, guid: f0d5a69fd87dc1644b9ecea272f0c939, type: 3}
-  walkEnemyL: {fileID: 1618706488094100452, guid: fce47b6b515ed30488d3861806673d3c, type: 3}
-  walkEnemyR: {fileID: 2020372635050774527, guid: 36ae7280ee0bead4faacb72e2e6bafc1, type: 3}
-  dushEnemyL: {fileID: 1618706488094100452, guid: 32986a260dd8b7d44a8c13035ae82fcd, type: 3}
-  dushEnemyR: {fileID: 2020372635050774527, guid: 9a824652029a6654ea1fbc2ae624d54e, type: 3}
-  truckEnemyL: {fileID: 1618706488094100452, guid: 8ab32caa2dcf6c8438d84ca325047b56, type: 3}
-  truckEnemyR: {fileID: 2020372635050774527, guid: 7dad92766361d5e48b02fbedee969400, type: 3}
+  walkEnemyL: {fileID: 4828388616866367172, guid: 7f91b7e3c3f2b5a4c939ae0043769f13, type: 3}
+  walkEnemyR: {fileID: 2020372635050774527, guid: 7dad92766361d5e48b02fbedee969400, type: 3}
   spawnInterval: 5
   fiveSecondSpeedUpRange: 0.3
 --- !u!1 &2018302534
@@ -3034,3 +3076,4 @@ SceneRoots:
   - {fileID: 1805626902}
   - {fileID: 1043628427}
   - {fileID: 1601761570}
+  - {fileID: 423935657}

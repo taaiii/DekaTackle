@@ -56,6 +56,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         //ほんとごめんなさい。。。。。
+        //各テキストで起きるイベント
         switch (currentStep)
         {
             case TutorialStep.Step1_1:
