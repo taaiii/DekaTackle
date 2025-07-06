@@ -186,6 +186,7 @@ public class EnemyAttackManager : MonoBehaviour
     void OnTackleSuccess()
     {
         // ダメージ処理など…
+        sePlayer.SetUseOneShot(true);
         sePlayer.PlayTackleSE(); // SEを鳴らす
     }
 
@@ -193,50 +194,64 @@ public class EnemyAttackManager : MonoBehaviour
     private IEnumerator CheckKeyPressCoroutine()
     {
         Debug.Log("CheckKeyPressCoroutine: 開始");
+        sePlayer.SetUseOneShot(false);
+        sePlayer.PlaysippaiSE();
 
-        float holdTime = 0f; // 押し続けている時間のカウント
-        //
+        float holdTime = 0f;
         Vector3 currentScale = MaskImages.transform.localScale;
-        KariMiss.SetActive(true);//仮ミスイメージ登場
+
+        KariMiss.SetActive(true);
         yield return new WaitForSeconds(waitTime);
         KariMiss.SetActive(false);
         DogezaImages.SetActive(true);
-        //
+
         while (playerStates.isCollision)
         {
-            // 両方が押されている間は時間を加算
+            if (inFever == 1)
+            {
+                DogezaImages.SetActive(false);
+                checkKeyCoroutine = null;
+                sePlayer.StopSE();
+                Debug.Log("inFeverが1になったので中断");
+                yield break;
+            }
+
             if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J))
             {
                 isSorry = true;
                 holdTime += Time.deltaTime;
                 currentScale.y += scaleSpeed * holdTime;
+
                 if (holdTime >= 2f)
                 {
                     playerStates.isCollision = false;
-                    Debug.Log("成功：FとJを3秒間同時に押した");
+                    Debug.Log("成功：FとJを2秒間同時に押した");
                     DogezaImages.SetActive(false);
                     break;
                 }
             }
             else
             {
-                // どちらかが離されたらリセット
                 isSorry = false;
                 if (holdTime > 0f)
                 {
-
                     Debug.Log("キーが離されたのでカウントリセット");
                 }
+
                 currentScale.y = originalYScale;
                 holdTime = 0f;
             }
+
             MaskImages.transform.localScale = currentScale;
             yield return null;
         }
+
         isSorry = false;
         checkKeyCoroutine = null;
+        sePlayer.StopSE();
         Debug.Log("CheckKeyPressCoroutine: 終了");
     }
+
 
     private IEnumerator DelayedProcessCoroutine()
     {
