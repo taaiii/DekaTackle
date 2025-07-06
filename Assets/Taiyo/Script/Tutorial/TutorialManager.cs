@@ -5,6 +5,7 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
+    public TutorialEnemyManager tutorialEnemyManager;
 
     public GameObject balloonUI;
     public TextMeshProUGUI tutorialText;
@@ -67,6 +68,17 @@ public class TutorialManager : MonoBehaviour
             case TutorialStep.Step1_6:
             case TutorialStep.Step1_7:
             case TutorialStep.Step1_8:
+
+                tutorialEnemyManager.SpawnState1();
+
+
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    currentStep++;
+                    ShowBalloon(currentStep);
+                }
+
+                break;
             case TutorialStep.Step1_9:
             case TutorialStep.Step1_10_Tackle:
             case TutorialStep.Step1_11_Success:
