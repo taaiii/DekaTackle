@@ -39,7 +39,7 @@ public class TutorialManager : MonoBehaviour
                 stepTextMap[entry.step] = entry.text;
         }
 
-        currentStep = TutorialStep.Step1;
+        currentStep = TutorialStep.Step1_1;
         ShowBalloon(currentStep);
     }
 
@@ -55,36 +55,42 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
+        //ほんとごめんなさい。。。。。
         switch (currentStep)
         {
-            case TutorialStep.Step1:
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    currentStep = TutorialStep.Step2;
-                    ShowBalloon(currentStep);
-                }
-                break;
+            case TutorialStep.Step1_1:
+            case TutorialStep.Step1_2:
+            case TutorialStep.Step1_3:
+            case TutorialStep.Step1_4:
+            case TutorialStep.Step1_5:
+            case TutorialStep.Step1_6:
+            case TutorialStep.Step1_7:
+            case TutorialStep.Step1_8:
+            case TutorialStep.Step1_9:
+            case TutorialStep.Step1_10_Tackle:
+            case TutorialStep.Step1_11_Success:
+            case TutorialStep.Step1_12:
+            case TutorialStep.Step1_13_Fail_1:
+            case TutorialStep.Step1_14_Fail_2:
+            case TutorialStep.Step2_1:
+            case TutorialStep.Step2_2_Success:
+            case TutorialStep.Step2_3_Fail_1:
+            case TutorialStep.Step2_4_Fail_2:
+            case TutorialStep.Step3_1:
+            case TutorialStep.Step3_2_FadeIn:
+            case TutorialStep.Step3_3:
+            case TutorialStep.Step3_4:
+            case TutorialStep.Step3_5:
+            case TutorialStep.Step3_6_FadeOut:
+            case TutorialStep.Step3_7:
+            case TutorialStep.Step3_8:
+            case TutorialStep.Step3_9:
+            case TutorialStep.Step3_10:
+            case TutorialStep.StepComplate:
 
-            case TutorialStep.Step2:
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
-                    currentStep = TutorialStep.Step3;
-                    ShowBalloon(currentStep);
-                }
-                break;
-
-            case TutorialStep.Step3:
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    HideBalloon();
-                    currentStep = TutorialStep.Complete;
-                    ShowBalloon(currentStep);
-                }
-                break;
-
-            case TutorialStep.Complete:
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
+                    currentStep++;
                     ShowBalloon(currentStep);
                 }
                 break;
