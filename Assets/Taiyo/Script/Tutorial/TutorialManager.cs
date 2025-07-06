@@ -67,13 +67,19 @@ public class TutorialManager : MonoBehaviour
             case TutorialStep.Step1_5:
             case TutorialStep.Step1_6:
             case TutorialStep.Step1_7:
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    currentStep++;
+                    ShowBalloon(currentStep);
+                }
+                break;
             case TutorialStep.Step1_8:
 
-                tutorialEnemyManager.SpawnState1();
 
 
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
+                    tutorialEnemyManager.SpawnState1();
                     currentStep++;
                     ShowBalloon(currentStep);
                 }

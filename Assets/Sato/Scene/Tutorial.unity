@@ -819,6 +819,7 @@ MonoBehaviour:
   walkEnemyR: {fileID: 2020372635050774527, guid: 36ae7280ee0bead4faacb72e2e6bafc1, type: 3}
   spawnInterval: 5
   fiveSecondSpeedUpRange: 0.3
+  ramdomEnemyNum: 0
 --- !u!4 &423935657
 Transform:
   m_ObjectHideFlags: 0
@@ -2418,6 +2419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8378b74ad8ff943a1fde8ba91b0a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialEnemyManager: {fileID: 423935656}
   balloonUI: {fileID: 1043628425}
   tutorialText: {fileID: 289506779}
   currentStep: 0
@@ -2579,6 +2581,7 @@ MonoBehaviour:
   walkEnemyR: {fileID: 2020372635050774527, guid: 7dad92766361d5e48b02fbedee969400, type: 3}
   spawnInterval: 5
   fiveSecondSpeedUpRange: 0.3
+  ramdomEnemyNum: 0
 --- !u!1 &2018302534
 GameObject:
   m_ObjectHideFlags: 0
