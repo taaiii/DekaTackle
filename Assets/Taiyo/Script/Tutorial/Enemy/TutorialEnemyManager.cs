@@ -15,7 +15,7 @@ public class TutorialEnemyManager : MonoBehaviour
     private float timer;
     private float gameCount = 0;
 
-    private int ramdomEnemyNum = 0;    //敵のランダム情報を保存 
+    public int ramdomEnemyNum = 0;    //敵のランダム情報を保存 
     private int isRightDirection; //方向のランダム情報を保存
 
     //左右ランダム+敵の種類ランダムでInstabtiate関数を使用して敵を出現させてください。
