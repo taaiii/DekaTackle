@@ -6,10 +6,14 @@ public class Counttext : MonoBehaviour
 {
     public TextMeshProUGUI textMeshProUGUI; // TextMeshProオブジェクトへの参照
                                             // カウンター
-    public GameObject RainbowScore;
-    public GameObject GoldScore;
-    public GameObject SilverScore;
-    public GameObject BronzeScore;
+    public GameObject RainbowScore1;
+    public GameObject GoldScore1;
+    public GameObject SilverScore1;
+    public GameObject BronzeScore1;
+    public GameObject RainbowScore2;
+    public GameObject GoldScore2;
+    public GameObject SilverScore2;
+    public GameObject BronzeScore2;
     public int RainbowPoint;
     public int GoldPoint;
     public int SilverPoint;
@@ -42,33 +46,43 @@ public class Counttext : MonoBehaviour
     private int ScoreEvaluation()
     {
         int currentPoint = PointCounter.Instance.Point;
-        if (currentPoint <= RainbowPoint && currentPoint>GoldPoint)
+
+        // すべて非表示にする
+        RainbowScore1.SetActive(false); RainbowScore2.SetActive(false);
+        GoldScore1.SetActive(false); GoldScore2.SetActive(false);
+        SilverScore1.SetActive(false); SilverScore2.SetActive(false);
+        BronzeScore1.SetActive(false); BronzeScore2.SetActive(false);
+
+        // 各ランクの範囲に応じて2枚セットを表示
+        if (currentPoint <= RainbowPoint && currentPoint > GoldPoint)
         {
-            RainbowScore.SetActive(true);
-            UpdateText(); 
+            RainbowScore1.SetActive(true);
+            RainbowScore2.SetActive(true);
             return 1;
         }
-        if (currentPoint <= GoldPoint && currentPoint>SilverPoint)
+        else if (currentPoint <= GoldPoint && currentPoint > SilverPoint)
         {
-            GoldScore.SetActive(true);
-            UpdateText(); 
+            GoldScore1.SetActive(true);
+            GoldScore2.SetActive(true);
             return 2;
         }
-        if (currentPoint <= SilverPoint && currentPoint > BronzePoint)
+        else if (currentPoint <= SilverPoint && currentPoint > BronzePoint)
         {
-            SilverScore.SetActive(true);
-            UpdateText(); 
+            SilverScore1.SetActive(true);
+            SilverScore2.SetActive(true);
             return 3;
         }
-        if (currentPoint <= BronzePoint && currentPoint > minScore)
+        else if (currentPoint <= BronzePoint && currentPoint > minScore)
         {
-            BronzeScore.SetActive(true);
-            UpdateText(); 
+            BronzeScore1.SetActive(true);
+            BronzeScore2.SetActive(true);
             return 4;
-        }else
+        }
+        else
         {
-            Debug.Log("エラーですよ");
+            Debug.LogWarning("評価できないポイント値です");
             return 0;
         }
     }
+
 }
