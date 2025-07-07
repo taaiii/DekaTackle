@@ -802,6 +802,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMeshProUGUI: {fileID: 461239537}
+  RainbowScore: {fileID: 0}
+  GoldScore: {fileID: 0}
+  SilverScore: {fileID: 0}
+  BronzeScore: {fileID: 0}
+  RainbowPoint: 0
+  GoldPoint: 0
+  SilverPoint: 0
+  BronzePoint: 0
 --- !u!1 &467251071
 GameObject:
   m_ObjectHideFlags: 0
