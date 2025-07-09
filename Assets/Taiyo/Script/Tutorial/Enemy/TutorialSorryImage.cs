@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class sorryimage : MonoBehaviour
+public class TutorialSorryimage : MonoBehaviour
 {
     public GameObject imageObject; // ImageがアタッチされたGameObject
-    public EnemyAttackManager enemyAttackManager;
+    public TutorialEnemyAttackManager enemyAttackManager;
     void Start()
     {
         // 保険で自動取得（Inspectorで割り当ててあれば不要）
         if (enemyAttackManager == null)
-            enemyAttackManager = FindObjectOfType<EnemyAttackManager>();
+            enemyAttackManager = FindObjectOfType<TutorialEnemyAttackManager>();
     }
     private void Update()
     {
-        if(enemyAttackManager.isSorry == true)
+        if (enemyAttackManager.isSorry == true)
         {
             OnToggle();
         }

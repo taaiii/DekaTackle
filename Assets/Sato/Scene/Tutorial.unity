@@ -3030,7 +3030,7 @@ GameObject:
   - component: {fileID: 2118968831}
   - component: {fileID: 2118968834}
   - component: {fileID: 2118968833}
-  - component: {fileID: 2118968832}
+  - component: {fileID: 2118968835}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -3057,20 +3057,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2118968832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118968830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e710deee09c1e334eb0d207b45908df5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageObject: {fileID: 2118968830}
-  enemyAttackManager: {fileID: 0}
 --- !u!114 &2118968833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3109,6 +3095,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118968830}
   m_CullTransparentMesh: 1
+--- !u!114 &2118968835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118968830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc353b92f082f624aa69b77730d116ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageObject: {fileID: 2118968830}
+  enemyAttackManager: {fileID: 106204648}
 --- !u!1 &2128545790
 GameObject:
   m_ObjectHideFlags: 0
