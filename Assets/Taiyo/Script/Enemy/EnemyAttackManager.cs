@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class EnemyAttackManager : MonoBehaviour
 {
-    //ˆÈ‰º“y‰ºÀƒQ[ƒW—pƒIƒuƒWƒFƒNƒg‚Æ•Ï”
-    public float scaleSpeed = 2f;               // Šg‘åƒXƒs[ƒh
+    //ä»¥ä¸‹åœŸä¸‹åº§ã‚²ãƒ¼ã‚¸ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨å¤‰æ•°
+    public float scaleSpeed = 2f;               // æ‹¡å¤§ã‚¹ãƒ”ãƒ¼ãƒ‰
 
     private float originalYScale;
     public float waitTime;
@@ -38,16 +38,16 @@ public class EnemyAttackManager : MonoBehaviour
 
     void Start()
     {
-        originalYScale = transform.localScale.y;//ƒ}ƒXƒN‚Ì‰Šú‚Ì‘å‚«‚³‚Ì•Û‘¶
+        originalYScale = transform.localScale.y;//ãƒã‚¹ã‚¯ã®åˆæœŸã®å¤§ãã•ã®ä¿å­˜
         tackleSuccesseImage.SetActive(false);
         tackleFailureImage.SetActive(false);
         player = GameObject.FindWithTag("Player");
 
-        // ’Ç‰ÁFCameraShake‚ğæ“¾
+        // è¿½åŠ ï¼šCameraShakeã‚’å–å¾—
         shakeCamera = Camera.main.GetComponent<ShakeCamera>();
         if (shakeCamera == null)
         {
-            Debug.LogWarning("ShakeCameraƒRƒ“ƒ|[ƒlƒ“ƒg‚ªMainCamera‚É‚ ‚è‚Ü‚¹‚ñI");
+            Debug.LogWarning("ShakeCameraã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒMainCameraã«ã‚ã‚Šã¾ã›ã‚“ï¼");
         }
 
         successeTimer = 0;
@@ -73,7 +73,7 @@ public class EnemyAttackManager : MonoBehaviour
             }
         }
 
-        // isCollision = false ‚Ì‚Ì‚İUŒ‚“ü—Í‚ğó‚¯•t‚¯‚é
+        // isCollision = false ã®æ™‚ã®ã¿æ”»æ’ƒå…¥åŠ›ã‚’å—ã‘ä»˜ã‘ã‚‹
         if (!playerStates.isCollision)
         {
             if (inFever == 0)
@@ -82,7 +82,7 @@ public class EnemyAttackManager : MonoBehaviour
                 {
                     ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
 
-                    // ‰æ–Ê—h‚ç‚·i—h‚ê‚ªİ’è‚³‚ê‚Ä‚¢‚ê‚Îj
+                    // ç”»é¢æºã‚‰ã™ï¼ˆæºã‚ŒãŒè¨­å®šã•ã‚Œã¦ã„ã‚Œã°ï¼‰
                     if (shakeCamera != null)
                     {
                         shakeCamera.TriggerShake(0.3f, 0.15f);
@@ -129,7 +129,7 @@ public class EnemyAttackManager : MonoBehaviour
         {
             if (inputDist <= oppositeDist)
             {
-                // ¬Œ÷F³‚µ‚¢“G‚ğUŒ‚
+                // æˆåŠŸï¼šæ­£ã—ã„æ•µã‚’æ”»æ’ƒ
                 OnTackleSuccess();
                 playerStates.isCollision = false;
                 HandleAttack(inputEnemy);
@@ -137,11 +137,11 @@ public class EnemyAttackManager : MonoBehaviour
             }
         }
 
-        // ƒ~ƒXF‰“‚¢“G or “G‚È‚µ
+        // ãƒŸã‚¹ï¼šé ã„æ•µ or æ•µãªã—
         playerStates.isCollision = true;
-        Debug.Log("ƒ~ƒXF‰“‚¢“G‚ğUŒ‚ or “G‚ª‚¢‚È‚¢");
+        Debug.Log("ãƒŸã‚¹ï¼šé ã„æ•µã‚’æ”»æ’ƒ or æ•µãŒã„ãªã„");
 
-        // ƒRƒ‹[ƒ`ƒ“‚ª“®‚¢‚Ä‚¢‚È‚¯‚ê‚ÎŠJn
+        // ã‚³ãƒ«ãƒ¼ãƒãƒ³ãŒå‹•ã„ã¦ã„ãªã‘ã‚Œã°é–‹å§‹
         if (checkKeyCoroutine == null)
         {
             checkKeyCoroutine = StartCoroutine(CheckKeyPressCoroutine());
@@ -158,7 +158,7 @@ public class EnemyAttackManager : MonoBehaviour
         {
             Vector3 toEnemy = enemy.transform.position - player.transform.position;
 
-            // •ûŒü‚ª‹t‚È‚çƒXƒLƒbƒv
+            // æ–¹å‘ãŒé€†ãªã‚‰ã‚¹ã‚­ãƒƒãƒ—
             if (Vector3.Dot(toEnemy.normalized, direction) < 0.5f) continue;
 
             float dist = toEnemy.magnitude;
@@ -177,28 +177,30 @@ public class EnemyAttackManager : MonoBehaviour
         if (enemy != null)
         {
             tackleSuccesseImage.SetActive(true);
-            Debug.Log($"“G‚ğ“|‚µ‚½: {enemy.name}");
+            Debug.Log($"æ•µã‚’å€’ã—ãŸ: {enemy.name}");
             PointCounter.Instance.Point++;
             Destroy(enemy);
         }
     }
-    // —áFEnemyAttackManager.cs ‚Ì’†
+    // ä¾‹ï¼šEnemyAttackManager.cs ã®ä¸­
     void OnTackleSuccess()
     {
-        // ƒ_ƒ[ƒWˆ—‚È‚Çc
+        // ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†ãªã©â€¦
         sePlayer.SetUseOneShot(true);
-        sePlayer.PlayTackleSE(); // SE‚ğ–Â‚ç‚·
+        sePlayer.PlayTackleSE(); // SEã‚’é³´ã‚‰ã™
     }
 
 
     private IEnumerator CheckKeyPressCoroutine()
     {
-        Debug.Log("CheckKeyPressCoroutine: ŠJn");
+        Debug.Log("CheckKeyPressCoroutine: é–‹å§‹");
         sePlayer.SetUseOneShot(false);
         sePlayer.PlaysippaiSE();
 
         float holdTime = 0f;
-        Vector3 currentScale = MaskImages.transform.localScale;
+        float duration = 2.0f; // 2ç§’é–“é•·æŠ¼ã—ã§æˆåŠŸ
+        float startY = originalYScale;
+        float targetY = originalYScale + 6.0f;
 
         KariMiss.SetActive(true);
         yield return new WaitForSeconds(waitTime);
@@ -213,7 +215,7 @@ public class EnemyAttackManager : MonoBehaviour
                 checkKeyCoroutine = null;
                 sePlayer.StopSE();
                 playerStates.isCollision = false;
-                Debug.Log("inFever‚ª1‚É‚È‚Á‚½‚Ì‚Å’†’f");
+                Debug.Log("inFeverãŒ1ã«ãªã£ãŸã®ã§ä¸­æ–­");
                 yield break;
             }
 
@@ -221,36 +223,45 @@ public class EnemyAttackManager : MonoBehaviour
             {
                 isSorry = true;
                 holdTime += Time.deltaTime;
-                currentScale.y += scaleSpeed * holdTime;
 
-                if (holdTime >= 2f)
+                // Lerp ã§ã‚¹ã‚±ãƒ¼ãƒ«ã‚’è£œé–“
+                float t = Mathf.Clamp01(holdTime / duration);
+                Vector3 scale = MaskImages.transform.localScale;
+                scale.y = Mathf.Lerp(startY, targetY, t);
+                MaskImages.transform.localScale = scale;
+
+                if (holdTime >= duration)
                 {
                     playerStates.isCollision = false;
-                    Debug.Log("¬Œ÷FF‚ÆJ‚ğ2•bŠÔ“¯‚É‰Ÿ‚µ‚½");
+                    Debug.Log("æˆåŠŸï¼šFã¨Jã‚’2ç§’é–“åŒæ™‚ã«æŠ¼ã—ãŸ");
                     DogezaImages.SetActive(false);
                     break;
                 }
             }
             else
             {
+                // ã‚­ãƒ¼ã‚’é›¢ã—ãŸã¨ãï¼šãƒªã‚»ãƒƒãƒˆ
                 isSorry = false;
+
                 if (holdTime > 0f)
                 {
-                    Debug.Log("ƒL[‚ª—£‚³‚ê‚½‚Ì‚ÅƒJƒEƒ“ƒgƒŠƒZƒbƒg");
+                    Debug.Log("ã‚­ãƒ¼ãŒé›¢ã•ã‚ŒãŸã®ã§ã‚«ã‚¦ãƒ³ãƒˆãƒªã‚»ãƒƒãƒˆ");
                 }
 
-                currentScale.y = originalYScale;
                 holdTime = 0f;
+
+                Vector3 scale = MaskImages.transform.localScale;
+                scale.y = startY;
+                MaskImages.transform.localScale = scale;
             }
 
-            MaskImages.transform.localScale = currentScale;
             yield return null;
         }
 
         isSorry = false;
         checkKeyCoroutine = null;
         sePlayer.StopSE();
-        Debug.Log("CheckKeyPressCoroutine: I—¹");
+        Debug.Log("CheckKeyPressCoroutine: çµ‚äº†");
     }
 
 

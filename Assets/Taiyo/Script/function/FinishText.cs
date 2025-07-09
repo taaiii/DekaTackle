@@ -5,6 +5,7 @@ public class FinishText : MonoBehaviour
 {
     public GameObject textObject; // 表示させたいTextMeshProオブジェクト
     public float showfinish = 70f; // 表示までの待ち時間（秒）
+    public AudioSource seAudioSource;
 
     void Start()
     {
@@ -23,6 +24,7 @@ public class FinishText : MonoBehaviour
     {
         yield return new WaitForSeconds(showfinish); // 70秒待つ
 
+        seAudioSource.Play();
         textObject.SetActive(true); // 表示
         Debug.Log("TextMeshPro 表示！");
 
