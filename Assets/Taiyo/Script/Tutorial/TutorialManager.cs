@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
@@ -22,8 +23,7 @@ public class TutorialManager : MonoBehaviour
     private bool inputLocked = false;
     private float inputLockTimer = 0f;
     private float inputLockDuration = 0.2f;
-    private bool IsSpownR = false;
-    private bool IsSpownL = false;
+    private bool IsSpown = false;
     private bool isGogeza = false;
 
     void Awake()
@@ -62,7 +62,7 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        //ほんとごめんなさい。。。。。
+        //チュートリアルイベント制御
         //各テキストで起きるイベント
         switch (currentStep)
         {
@@ -85,7 +85,7 @@ public class TutorialManager : MonoBehaviour
             case TutorialStep.Step1_7:
 
                 //チュートリアル1の敵を作成
-                SpwawnEnemyByDontMove();
+                SpwawnEnemyByState1();
                 NextText();
 
                 break;
@@ -119,11 +119,17 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case TutorialStep.Step1_11_Success:
-                NextText(); break;
+
+                NextText();
+                IsSpown = false;    //次の作成のためfalseに
+
+
+                break;
             case TutorialStep.Step1_12:
 
                 SerectNextText(TutorialStep.Step2_1);
                 ShowBalloon(currentStep);
+                AttackObserver.SetIsAttack(false);
 
                 break;
             case TutorialStep.Step1_13_Fail_1:
@@ -136,9 +142,54 @@ public class TutorialManager : MonoBehaviour
                 SerectNextText(TutorialStep.Step1_10_Tackle);
                 break;
             case TutorialStep.Step2_1:
+
+                SpwawnEnemyByState2();
+                MoveL.AddLifeCount();
+                //こうげきOK 
+                AttackObserver.SetOkAttack(true);
+
+                //攻撃されたか？
+                if (AttackObserver.GetIsAttack())
+                {
+                    //攻撃は成功したか？
+                    if (AttackObserver.GetSuccess())
+                    {
+                        AutoSerectNextText(TutorialStep.Step2_2_Success);
+                        AttackObserver.SetOkAttack(false);
+                        ShowBalloon(currentStep);
+                    }
+                    else
+                    {
+                        AutoSerectNextText(TutorialStep.Step2_3_Fail_1);
+                        AttackObserver.SetOkAttack(false);
+                        ShowBalloon(currentStep);
+                    }
+                }
+
+                //行き過ぎ処理
+                if (MoveL.GetIsMiss())
+                {
+                    AutoSerectNextText(TutorialStep.Step2_3_Fail_1);
+                }
+                break;
+
             case TutorialStep.Step2_2_Success:
+
+                SerectNextText(TutorialStep.Step3_1);
+                break;
             case TutorialStep.Step2_3_Fail_1:
+                NextText();
+                break;
             case TutorialStep.Step2_4_Fail_2:
+
+                IsSpown = false;
+                AttackObserver.SetIsAttack(false);
+                AttackObserver.SetOkAttack(true);
+                MoveL.SetIsMiss(false);
+                MoveL.ResetLifeCount();
+                SerectNextText(TutorialStep.Step2_1);
+
+                break;
             case TutorialStep.Step3_1:
             case TutorialStep.Step3_2_FadeIn:
             case TutorialStep.Step3_3:
@@ -203,17 +254,33 @@ public class TutorialManager : MonoBehaviour
 
 
     //チュートリアルに合わせ止まっている敵を作成
-    void SpwawnEnemyByDontMove()
+    void SpwawnEnemyByState1()
     {
         //動かない
         MoveL.SetMove(false);
+        if(currentStep == TutorialStep.Step1_10_Tackle)
         MoveR.SetMove(false);
 
         //すでにスポーンしているか
-        if (!IsSpownL)
+        if (!IsSpown)
         {
-            IsSpownL = true;
+            IsSpown = true;
             EnemyManager.SpawnState1();
         }
     }
+
+    //チュートリアル2の敵を作成
+    void SpwawnEnemyByState2()
+    {
+        //動く
+        MoveL.SetMove(true);
+        MoveR.SetMove(true);
+        //すでにスポーンしているか
+        if (!IsSpown)
+        {
+            IsSpown = true;
+            EnemyManager.SpawnState2();
+        }
+    }
+
 }

@@ -11,9 +11,8 @@ public class TutorialMoveR : MonoBehaviour
     {
         if (isMove)
         {
-            Debug.Log(isMove);
-            Vector3 move = Vector3.right * moveSpeedR * Time.deltaTime;
-            transform.position -= move;
+            Vector3 move = Vector3.left * moveSpeedR * Time.deltaTime;
+            transform.position += move;
 
             if (transform.position.x < DeletePos)
             {

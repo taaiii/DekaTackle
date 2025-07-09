@@ -54,6 +54,18 @@ public class TutorialEnemyManager : MonoBehaviour
         Instantiate(walkEnemyR, new Vector3(3, 0f, 0f), Quaternion.identity);
     }
 
+    public void SpawnState2()
+    {
+        GameObject[] existingEnemies = GameObject.FindGameObjectsWithTag("EnemyL");
+        foreach (GameObject enemy in existingEnemies)
+        {
+            Destroy(enemy);
+        }
+
+        // êVÇµÇ¢ìGÇê∂ê¨
+        Instantiate(walkEnemyL, new Vector3(-10f, 0f, 0f), Quaternion.identity);
+    }
+
     int RandomDirection()
     {
         // 0 : ç∂, 1 : âE

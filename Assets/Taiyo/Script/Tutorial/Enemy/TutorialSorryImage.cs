@@ -23,14 +23,12 @@ public class TutorialSorryimage : MonoBehaviour
     }
     public void OnToggle()
     {
-        Debug.Log("Image ON");
         if (imageObject != null)
             imageObject.SetActive(true);
     }
 
     public void OffToggle()
     {
-        Debug.Log("Image OFF");
         if (imageObject != null)
             imageObject.SetActive(false);
     }
