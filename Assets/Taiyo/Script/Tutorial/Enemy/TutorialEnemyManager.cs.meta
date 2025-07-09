@@ -3,7 +3,9 @@ guid: fa17f2c423ebadb48a67695e9b567a39
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - walkEnemyL: {fileID: 1618706488094100452, guid: fce47b6b515ed30488d3861806673d3c, type: 3}
+  - walkEnemyR: {fileID: 2020372635050774527, guid: 36ae7280ee0bead4faacb72e2e6bafc1, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

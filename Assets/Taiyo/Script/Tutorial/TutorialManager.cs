@@ -5,7 +5,10 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
-    public TutorialEnemyManager tutorialEnemyManager;
+    public TutorialEnemyManager EnemyManager;
+    public TutorialMoveR MoveR;
+    public TutorialMoveL MoveL;
+    public JudgeAttackObserver AttackObserver;
 
     public GameObject balloonUI;
     public TextMeshProUGUI tutorialText;
@@ -19,6 +22,9 @@ public class TutorialManager : MonoBehaviour
     private bool inputLocked = false;
     private float inputLockTimer = 0f;
     private float inputLockDuration = 0.2f;
+    private bool IsSpownR = false;
+    private bool IsSpownL = false;
+    private bool isGogeza = false;
 
     void Awake()
     {
@@ -61,36 +67,74 @@ public class TutorialManager : MonoBehaviour
         switch (currentStep)
         {
             case TutorialStep.Step1_1:
+                //if(!isGogeza)
+                //{
+                //    AttackObserver.SetIsDogeza(true);
+                //    isGogeza = true;
+                //}
+                NextText();
+
+                break;
             case TutorialStep.Step1_2:
             case TutorialStep.Step1_3:
             case TutorialStep.Step1_4:
             case TutorialStep.Step1_5:
             case TutorialStep.Step1_6:
+                NextText();
+                break;
             case TutorialStep.Step1_7:
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    currentStep++;
-                    ShowBalloon(currentStep);
-                }
+
+                //チュートリアル1の敵を作成
+                SpwawnEnemyByDontMove();
+                NextText();
+
                 break;
+
             case TutorialStep.Step1_8:
+            case TutorialStep.Step1_9:
+                NextText();
+                break;
 
+            case TutorialStep.Step1_10_Tackle:
 
+                //こうげきOK 
+                AttackObserver.SetOkAttack(true);
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                //攻撃されたか？
+                if (AttackObserver.GetIsAttack())
                 {
-                    tutorialEnemyManager.SpawnState1();
-                    currentStep++;
-                    ShowBalloon(currentStep);
+                    //攻撃は成功したか？
+                    if (AttackObserver.GetSuccess())
+                    {
+                        AutoSerectNextText(TutorialStep.Step1_11_Success);
+                        AttackObserver.SetOkAttack(false);
+                        ShowBalloon(currentStep);
+                    }
+                    else
+                    {
+                        AutoSerectNextText(TutorialStep.Step1_13_Fail_1);
+                        AttackObserver.SetOkAttack(false);
+                        ShowBalloon(currentStep);
+                    }
                 }
+                break;
+            case TutorialStep.Step1_11_Success:
+                NextText(); break;
+            case TutorialStep.Step1_12:
+
+                SerectNextText(TutorialStep.Step2_1);
+                ShowBalloon(currentStep);
 
                 break;
-            case TutorialStep.Step1_9:
-            case TutorialStep.Step1_10_Tackle:
-            case TutorialStep.Step1_11_Success:
-            case TutorialStep.Step1_12:
             case TutorialStep.Step1_13_Fail_1:
+                NextText(); 
+                break;
             case TutorialStep.Step1_14_Fail_2:
+
+                AttackObserver.SetIsAttack(false);
+                AttackObserver.SetOkAttack(true);
+                SerectNextText(TutorialStep.Step1_10_Tackle);
+                break;
             case TutorialStep.Step2_1:
             case TutorialStep.Step2_2_Success:
             case TutorialStep.Step2_3_Fail_1:
@@ -130,5 +174,46 @@ public class TutorialManager : MonoBehaviour
     void HideBalloon()
     {
         balloonUI.SetActive(false);
+    }
+
+    //テキスト送り
+    void NextText()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            currentStep++;
+            ShowBalloon(currentStep);
+        }
+    }
+
+    void AutoSerectNextText(TutorialStep step)
+    {
+        currentStep = step;
+        ShowBalloon(currentStep);
+    }
+
+    void SerectNextText(TutorialStep step)
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            currentStep = step;
+            ShowBalloon(currentStep);
+        }
+    }
+
+
+    //チュートリアルに合わせ止まっている敵を作成
+    void SpwawnEnemyByDontMove()
+    {
+        //動かない
+        MoveL.SetMove(false);
+        MoveR.SetMove(false);
+
+        //すでにスポーンしているか
+        if (!IsSpownL)
+        {
+            IsSpownL = true;
+            EnemyManager.SpawnState1();
+        }
     }
 }

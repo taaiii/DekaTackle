@@ -12,9 +12,6 @@ public class TutorialEnemyManager : MonoBehaviour
     public float spawnInterval = 5f;
     public float fiveSecondSpeedUpRange = 0.3f;
 
-    private float timer;
-    private float gameCount = 0;
-
     public int ramdomEnemyNum = 0;    //“G‚Ìƒ‰ƒ“ƒ_ƒ€î•ñ‚ğ•Û‘¶ 
     private int isRightDirection; //•ûŒü‚Ìƒ‰ƒ“ƒ_ƒ€î•ñ‚ğ•Û‘¶
 
@@ -24,40 +21,37 @@ public class TutorialEnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer = 5f;
-        gameCount = 0;
+        ramdomEnemyNum = 2;
+        isRightDirection = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        gameCount += Time.deltaTime;
+        //timer += Time.deltaTime;
+        //gameCount += Time.deltaTime;
 
-        //‚T•b‚²‚Æ‚É0.3•b‘¬‚­
-        if (gameCount > 5)
-        {
-            gameCount = 0;
-        }
+        ////‚T•b‚²‚Æ‚É0.3•b‘¬‚­
+        //if (gameCount > 5)
+        //{
+        //    gameCount = 0;
+        //}
 
-        if (timer > spawnInterval)
-        {
-            timer = 0f;
+        //if (timer > spawnInterval)
+        //{
+        //    timer = 0f;
 
-            //“G‚Æ•ûŒü‚ğİ’è
-            ramdomEnemyNum = 2;
-            isRightDirection = RandomDirection();
+        //    //“G‚Æ•ûŒü‚ğİ’è
+        //    ramdomEnemyNum = 2;
+        //    isRightDirection = RandomDirection();
 
-             CreateWalk(); //•à‚«
-        }
+        //     CreateWalk(); //•à‚«
+        //}
     }
 
     public void SpawnState1()
     {
-        ramdomEnemyNum = 2;
-        isRightDirection = 1;
-
-        CreateWalk(); //•à‚«
+        Instantiate(walkEnemyR, new Vector3(3, 0f, 0f), Quaternion.identity);
     }
 
     int RandomDirection()

@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class TutorialMove : MonoBehaviour
+public class TutorialMoveL : MonoBehaviour
 {
     public float moveSpeed = 1f; // •bŠÔˆÚ“®—Ê
     public const float DeletePos  = 0f;
 
-    public bool isMove = true;
+    bool isMove = false;
 
     void Update()
     {
-        if(isMove)
+        if (isMove)
         {
             Vector3 move = Vector3.right * moveSpeed * Time.deltaTime;
             transform.position += move;
@@ -21,7 +21,7 @@ public class TutorialMove : MonoBehaviour
         }
     }
 
-   public void SetIsMove(bool move)
+    public void SetMove(bool move)
     {
         isMove = move;
     }
