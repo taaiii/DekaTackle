@@ -1,24 +1,21 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
-public class Counttext : MonoBehaviour
+public class ScoreDisplayText : MonoBehaviour
 {
-    public TextMeshProUGUI textMeshProUGUI; // TextMeshProオブジェクトへの参照
-     // カウンター
+    public TextMeshProUGUI textMeshProUGUI;
 
-    void Start()
-    {
-        UpdateText(); // 初期表示
-    }
+    private int lastScore = -1;
 
     void Update()
     {
-        UpdateText();
-    }
+        int currentScore = PointCounter.Instance.Point;
 
-    // テキスト更新用のメソッド
-    void UpdateText()
-    {
-        textMeshProUGUI.text = /*"Point: " + */PointCounter.Instance.Point.ToString();
+        // スコアが変わったときだけ更新
+        if (currentScore != lastScore)
+        {
+            lastScore = currentScore;
+            textMeshProUGUI.text = currentScore.ToString();
+        }
     }
 }

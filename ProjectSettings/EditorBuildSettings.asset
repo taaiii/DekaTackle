@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Taiyo/Scene/ResultScene.unity
     guid: c9e97fc3471dad8479d56db1c0af7d02
+  - enabled: 1
+    path: Assets/Taiyo/Scene/test.unity
+    guid: 300912221f15b504fa2ef73b5906180b
   m_configObjects: {}

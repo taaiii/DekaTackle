@@ -1,8 +1,18 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class EnemyAttackManager : MonoBehaviour
 {
+    //ä»¥ä¸‹åœŸä¸‹åº§ã‚²ãƒ¼ã‚¸ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨å¤‰æ•°
+    public float scaleSpeed = 2f;               // æ‹¡å¤§ã‚¹ãƒ”ãƒ¼ãƒ‰
+
+    private float originalYScale;
+    public float waitTime;
+    public float DogezaImagesMaxSize;
+    [SerializeField] private GameObject DogezaImages;
+    [SerializeField] private GameObject MaskImages;
+    [SerializeField] private GameObject KariMiss;
+    //
     public float attackRange = 5f;
     public string leftEnemyTag = "EnemyL";
     public string rightEnemyTag = "EnemyR";
@@ -19,6 +29,8 @@ public class EnemyAttackManager : MonoBehaviour
 
     public float DrawimageTime = 0.5f;
 
+    public int inFever = 0;
+
     private GameObject player;
     private Coroutine checkKeyCoroutine = null;
     private float successeTimer = 0;
@@ -26,15 +38,16 @@ public class EnemyAttackManager : MonoBehaviour
 
     void Start()
     {
+        originalYScale = transform.localScale.y;//ãƒã‚¹ã‚¯ã®åˆæœŸã®å¤§ãã•ã®ä¿å­˜
         tackleSuccesseImage.SetActive(false);
         tackleFailureImage.SetActive(false);
         player = GameObject.FindWithTag("Player");
 
-        // ’Ç‰ÁFCameraShake‚ğæ“¾
+        // è¿½åŠ ï¼šCameraShakeã‚’å–å¾—
         shakeCamera = Camera.main.GetComponent<ShakeCamera>();
         if (shakeCamera == null)
         {
-            Debug.LogWarning("ShakeCameraƒRƒ“ƒ|[ƒlƒ“ƒg‚ªMainCamera‚É‚ ‚è‚Ü‚¹‚ñI");
+            Debug.LogWarning("ShakeCameraã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒMainCameraã«ã‚ã‚Šã¾ã›ã‚“ï¼");
         }
 
         successeTimer = 0;
@@ -44,6 +57,7 @@ public class EnemyAttackManager : MonoBehaviour
 
         successeTimer = 0;
         //FailTimer = 0;
+        StartCoroutine(DelayedProcessCoroutine());
     }
 
     void Update()
@@ -59,30 +73,47 @@ public class EnemyAttackManager : MonoBehaviour
             }
         }
 
-        // isCollision = false ‚Ì‚Ì‚İUŒ‚“ü—Í‚ğó‚¯•t‚¯‚é
+        // isCollision = false ã®æ™‚ã®ã¿æ”»æ’ƒå…¥åŠ›ã‚’å—ã‘ä»˜ã‘ã‚‹
         if (!playerStates.isCollision)
         {
-            if (Input.GetKeyUp(KeyCode.A))
+            if (inFever == 0)
             {
-                ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
-
-                // ‰æ–Ê—h‚ç‚·i—h‚ê‚ªİ’è‚³‚ê‚Ä‚¢‚ê‚Îj
-                if (shakeCamera != null)
+                if (Input.GetKeyUp(KeyCode.A))
                 {
-                    shakeCamera.TriggerShake(0.3f, 0.15f);
+                    ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
+
+                    // ç”»é¢æºã‚‰ã™ï¼ˆæºã‚ŒãŒè¨­å®šã•ã‚Œã¦ã„ã‚Œã°ï¼‰
+                    if (shakeCamera != null)
+                    {
+                        shakeCamera.TriggerShake(0.3f, 0.15f);
+                    }
+                }
+
+                if (Input.GetKeyUp(KeyCode.D))
+                {
+                    ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag);
+
+                    if (shakeCamera != null)
+                    {
+                        shakeCamera.TriggerShake(0.3f, 0.15f);
+
+                    }
+                }
+
+            }
+            else if (inFever == 1)
+            {
+                if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+                {
+                    if (shakeCamera != null)
+                    {
+                        shakeCamera.TriggerShake(0.3f, 0.15f);
+                        OnTackleSuccess();
+                        playerStates.isCollision = false;
+                        PointCounter.Instance.Point++;
+                    }
                 }
             }
-
-            if (Input.GetKeyUp(KeyCode.D))
-            {
-                ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag);
-
-                if (shakeCamera != null)
-                {
-                    shakeCamera.TriggerShake(0.3f, 0.15f);
-                }
-            }
-
         }
     }
 
@@ -98,7 +129,7 @@ public class EnemyAttackManager : MonoBehaviour
         {
             if (inputDist <= oppositeDist)
             {
-                // ¬Œ÷F³‚µ‚¢“G‚ğUŒ‚
+                // æˆåŠŸï¼šæ­£ã—ã„æ•µã‚’æ”»æ’ƒ
                 OnTackleSuccess();
                 playerStates.isCollision = false;
                 HandleAttack(inputEnemy);
@@ -106,11 +137,11 @@ public class EnemyAttackManager : MonoBehaviour
             }
         }
 
-        // ƒ~ƒXF‰“‚¢“G or “G‚È‚µ
+        // ãƒŸã‚¹ï¼šé ã„æ•µ or æ•µãªã—
         playerStates.isCollision = true;
-        Debug.Log("ƒ~ƒXF‰“‚¢“G‚ğUŒ‚ or “G‚ª‚¢‚È‚¢");
+        Debug.Log("ãƒŸã‚¹ï¼šé ã„æ•µã‚’æ”»æ’ƒ or æ•µãŒã„ãªã„");
 
-        // ƒRƒ‹[ƒ`ƒ“‚ª“®‚¢‚Ä‚¢‚È‚¯‚ê‚ÎŠJn
+        // ã‚³ãƒ«ãƒ¼ãƒãƒ³ãŒå‹•ã„ã¦ã„ãªã‘ã‚Œã°é–‹å§‹
         if (checkKeyCoroutine == null)
         {
             checkKeyCoroutine = StartCoroutine(CheckKeyPressCoroutine());
@@ -127,7 +158,7 @@ public class EnemyAttackManager : MonoBehaviour
         {
             Vector3 toEnemy = enemy.transform.position - player.transform.position;
 
-            // •ûŒü‚ª‹t‚È‚çƒXƒLƒbƒv
+            // æ–¹å‘ãŒé€†ãªã‚‰ã‚¹ã‚­ãƒƒãƒ—
             if (Vector3.Dot(toEnemy.normalized, direction) < 0.5f) continue;
 
             float dist = toEnemy.magnitude;
@@ -146,56 +177,100 @@ public class EnemyAttackManager : MonoBehaviour
         if (enemy != null)
         {
             tackleSuccesseImage.SetActive(true);
-            Debug.Log($"“G‚ğ“|‚µ‚½: {enemy.name}");
+            Debug.Log($"æ•µã‚’å€’ã—ãŸ: {enemy.name}");
             PointCounter.Instance.Point++;
             Destroy(enemy);
         }
     }
-    // —áFEnemyAttackManager.cs ‚Ì’†
+    // ä¾‹ï¼šEnemyAttackManager.cs ã®ä¸­
     void OnTackleSuccess()
     {
-        // ƒ_ƒ[ƒWˆ—‚È‚Çc
-        sePlayer.PlayTackleSE(); // SE‚ğ–Â‚ç‚·
+        // ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†ãªã©â€¦
+        sePlayer.SetUseOneShot(true);
+        sePlayer.PlayTackleSE(); // SEã‚’é³´ã‚‰ã™
     }
 
 
     private IEnumerator CheckKeyPressCoroutine()
     {
-        Debug.Log("CheckKeyPressCoroutine: ŠJn");
+        Debug.Log("CheckKeyPressCoroutine: é–‹å§‹");
+        sePlayer.SetUseOneShot(false);
+        sePlayer.PlaysippaiSE();
 
-        float holdTime = 0f; // ‰Ÿ‚µ‘±‚¯‚Ä‚¢‚éŠÔ‚ÌƒJƒEƒ“ƒg
+        float holdTime = 0f;
+        float duration = 2.0f; // 2ç§’é–“é•·æŠ¼ã—ã§æˆåŠŸ
+        float startY = originalYScale;
+        float targetY = originalYScale + 6.0f;
+
+        KariMiss.SetActive(true);
+        yield return new WaitForSeconds(waitTime);
+        KariMiss.SetActive(false);
+        DogezaImages.SetActive(true);
 
         while (playerStates.isCollision)
         {
-            // —¼•û‚ª‰Ÿ‚³‚ê‚Ä‚¢‚éŠÔ‚ÍŠÔ‚ğ‰ÁZ
+            if (inFever == 1)
+            {
+                DogezaImages.SetActive(false);
+                checkKeyCoroutine = null;
+                sePlayer.StopSE();
+                playerStates.isCollision = false;
+                Debug.Log("inFeverãŒ1ã«ãªã£ãŸã®ã§ä¸­æ–­");
+                yield break;
+            }
+
             if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J))
             {
                 isSorry = true;
                 holdTime += Time.deltaTime;
 
-                if (holdTime >= 2f)
+                // Lerp ã§ã‚¹ã‚±ãƒ¼ãƒ«ã‚’è£œé–“
+                float t = Mathf.Clamp01(holdTime / duration);
+                Vector3 scale = MaskImages.transform.localScale;
+                scale.y = Mathf.Lerp(startY, targetY, t);
+                MaskImages.transform.localScale = scale;
+
+                if (holdTime >= duration)
                 {
                     playerStates.isCollision = false;
-                    Debug.Log("¬Œ÷FF‚ÆJ‚ğ3•bŠÔ“¯‚É‰Ÿ‚µ‚½");
+                    Debug.Log("æˆåŠŸï¼šFã¨Jã‚’2ç§’é–“åŒæ™‚ã«æŠ¼ã—ãŸ");
+                    DogezaImages.SetActive(false);
                     break;
                 }
             }
             else
             {
-                // ‚Ç‚¿‚ç‚©‚ª—£‚³‚ê‚½‚çƒŠƒZƒbƒg
-                isSorry= false;
+                // ã‚­ãƒ¼ã‚’é›¢ã—ãŸã¨ãï¼šãƒªã‚»ãƒƒãƒˆ
+                isSorry = false;
+
                 if (holdTime > 0f)
                 {
-                    Debug.Log("ƒL[‚ª—£‚³‚ê‚½‚Ì‚ÅƒJƒEƒ“ƒgƒŠƒZƒbƒg");
+                    Debug.Log("ã‚­ãƒ¼ãŒé›¢ã•ã‚ŒãŸã®ã§ã‚«ã‚¦ãƒ³ãƒˆãƒªã‚»ãƒƒãƒˆ");
                 }
+
                 holdTime = 0f;
+
+                Vector3 scale = MaskImages.transform.localScale;
+                scale.y = startY;
+                MaskImages.transform.localScale = scale;
             }
 
             yield return null;
         }
+
         isSorry = false;
         checkKeyCoroutine = null;
-        Debug.Log("CheckKeyPressCoroutine: I—¹");
+        sePlayer.StopSE();
+        Debug.Log("CheckKeyPressCoroutine: çµ‚äº†");
     }
 
+
+    private IEnumerator DelayedProcessCoroutine()
+    {
+        yield return new WaitForSeconds(60f);
+        inFever = 1;
+
+        yield return new WaitForSeconds(10f);
+        inFever = 2;
+    }
 }

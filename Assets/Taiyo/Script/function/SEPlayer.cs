@@ -1,19 +1,50 @@
+// SEPlayer.cs（あなたが提示したスクリプト）
 using UnityEngine;
 
 public class SEPlayer : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip tackleSE; // 再生したいSE
+    [SerializeField] private AudioClip tackleSE;
+    [SerializeField] private AudioClip sippaiSE;
+    [SerializeField] private bool useOneShot = true;
 
     public void PlayTackleSE()
     {
         if (audioSource != null && tackleSE != null)
         {
-            audioSource.PlayOneShot(tackleSE);
+            if (useOneShot)
+                audioSource.PlayOneShot(tackleSE);
+            else
+            {
+                audioSource.clip = tackleSE;
+                audioSource.Play();
+            }
         }
-        else
+    }
+    public void PlaysippaiSE()
+    {
+        if (audioSource != null && sippaiSE != null)
         {
-            Debug.LogWarning("SE または AudioSource が設定されていません！");
+            if (useOneShot)
+                audioSource.PlayOneShot(sippaiSE);
+            else
+            {
+                audioSource.clip = sippaiSE;
+                audioSource.Play();
+            }
         }
+    }
+
+    public void StopSE()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
+    }
+
+    public void SetUseOneShot(bool value)
+    {
+        useOneShot = value;
     }
 }

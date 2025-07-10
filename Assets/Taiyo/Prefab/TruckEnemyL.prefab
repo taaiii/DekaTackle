@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 37371537042334423}
   - component: {fileID: 4856761876394450063}
   - component: {fileID: 9032898304843140931}
+  - component: {fileID: -4992622348630159735}
+  - component: {fileID: -7914368079957522449}
   m_Layer: 0
   m_Name: TruckEnemyL
   m_TagString: EnemyL
@@ -232,3 +234,27 @@ MonoBehaviour:
   inputRange: 8
   eventNumber: 2
   plstates: {fileID: 0}
+--- !u!114 &-4992622348630159735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618706488094100452}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c272732a3f84bb145995768850f0ce60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7914368079957522449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618706488094100452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039c443cd9ca90f43b0e9f18b06e7a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
