@@ -235,19 +235,24 @@ public class TutorialEnemyAttackManager : MonoBehaviour
                 Debug.Log("inFever‚ª1‚É‚È‚Á‚½‚Ì‚Å’†’f");
                 yield break;
             }
-
-            if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J))
+            Debug.Log(judgeAttackObserver.GetHowDogeza());
+            if (judgeAttackObserver.GetHowDogeza())
             {
-                isSorry = true;
-                holdTime += Time.deltaTime;
-                currentScale.y += scaleSpeed * holdTime;
-
-                if (holdTime >= 2f)
+                if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J))
                 {
-                    playerStates.isCollision = false;
-                    Debug.Log("¬Œ÷FF‚ÆJ‚ğ2•bŠÔ“¯‚É‰Ÿ‚µ‚½");
-                    DogezaImages.SetActive(false);
-                    break;
+
+                    isSorry = true;
+                    holdTime += Time.deltaTime;
+                    currentScale.y += scaleSpeed * holdTime;
+
+                    if (holdTime >= 2f)
+                    {
+                        playerStates.isCollision = false;
+                        Debug.Log("¬Œ÷FF‚ÆJ‚ğ2•bŠÔ“¯‚É‰Ÿ‚µ‚½");
+                        DogezaImages.SetActive(false);
+                        judgeAttackObserver.SetIsClearDogeza(true);
+                        break;
+                    }
                 }
             }
             else

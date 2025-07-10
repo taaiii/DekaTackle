@@ -20,11 +20,7 @@ public class TutorialManager : MonoBehaviour
     [Header("テキストデータ（ScriptableObject）")]
     public TutorialTextData textData;
 
-    private bool inputLocked = false;
-    private float inputLockTimer = 0f;
-    private float inputLockDuration = 0.2f;
     private bool IsSpown = false;
-    private bool isGogeza = false;
 
     void Awake()
     {
@@ -38,7 +34,7 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        // ScriptableObjectから辞書に変換
+        // ScriptableObjectから変換
         stepTextMap = new Dictionary<TutorialStep, string>();
         foreach (var entry in textData.tutorialSteps)
         {
@@ -52,26 +48,11 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
-        if (inputLocked)
-        {
-            inputLockTimer += Time.deltaTime;
-            if (inputLockTimer >= inputLockDuration)
-            {
-                inputLocked = false;
-            }
-            return;
-        }
-
         //チュートリアルイベント制御
         //各テキストで起きるイベント
         switch (currentStep)
         {
             case TutorialStep.Step1_1:
-                //if(!isGogeza)
-                //{
-                //    AttackObserver.SetIsDogeza(true);
-                //    isGogeza = true;
-                //}
                 NextText();
 
                 break;
@@ -138,7 +119,6 @@ public class TutorialManager : MonoBehaviour
             case TutorialStep.Step1_14_Fail_2:
 
                 AttackObserver.SetIsAttack(false);
-                AttackObserver.SetOkAttack(true);
                 SerectNextText(TutorialStep.Step1_10_Tackle);
                 break;
             case TutorialStep.Step2_1:
@@ -184,29 +164,38 @@ public class TutorialManager : MonoBehaviour
 
                 IsSpown = false;
                 AttackObserver.SetIsAttack(false);
-                AttackObserver.SetOkAttack(true);
                 MoveL.SetIsMiss(false);
                 MoveL.ResetLifeCount();
                 SerectNextText(TutorialStep.Step2_1);
 
                 break;
             case TutorialStep.Step3_1:
+                NextText();
+                break;
             case TutorialStep.Step3_2_FadeIn:
+                AttackObserver.SetIsDogeza(true);
+                NextText();
+                break;
+
             case TutorialStep.Step3_3:
             case TutorialStep.Step3_4:
             case TutorialStep.Step3_5:
+                NextText();
+                break;
             case TutorialStep.Step3_6_FadeOut:
+                    AttackObserver.SetHowDogeza(true);
+                if(AttackObserver.GetIsClearDogeza())
+                {
+                    AutoSerectNextText(TutorialStep.Step3_7);
+                }
+                break;
             case TutorialStep.Step3_7:
             case TutorialStep.Step3_8:
             case TutorialStep.Step3_9:
             case TutorialStep.Step3_10:
             case TutorialStep.StepComplate:
 
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    currentStep++;
-                    ShowBalloon(currentStep);
-                }
+                NextText();
                 break;
         }
     }

@@ -4,16 +4,11 @@ using UnityEngine;
 
 
 /********
- *  タックル判定の通知管理クラス(能動的な疑似オブザーバー)
- *  
- *  atacckManagerで判定Set
- *  TutorialManagerで判定を使用
- *  
+ *  タックル判定の通知管理クラス(疑似オブザーバー)
  **/
 
 public class JudgeAttackObserver : MonoBehaviour
 {
-
     //タックルしていいか
     bool isOkAttack = false;
 
@@ -23,8 +18,25 @@ public class JudgeAttackObserver : MonoBehaviour
     //タックルに成功したか
     bool isSuccess = false;
 
-    //土下座タイミング
+    //土下座画像を出す
     bool isDogeza = false;
+
+    //土下座できるか
+    bool isHowDogeza = false;
+
+    //土下座が終了したか
+    bool isClearDogeza = false;
+
+    private void Start()
+    {
+        //すべて初期化
+        isOkAttack      = false;
+        isAttack        = false;
+        isSuccess       = false;
+        isDogeza        = false;
+        isHowDogeza     = false;
+        isClearDogeza   = false;
+    }
 
     public void SetOkAttack(bool result)
     {
@@ -63,6 +75,21 @@ public class JudgeAttackObserver : MonoBehaviour
     {
         return isDogeza;
     }
-
+    public void SetHowDogeza(bool result)
+    {
+        isHowDogeza = result;
+    }
+    public bool GetHowDogeza()
+    {
+        return isHowDogeza;
+    }
+    public void SetIsClearDogeza(bool result)
+    {
+        isClearDogeza = result;
+    }
+    public bool GetIsClearDogeza()
+    {
+        return isClearDogeza;
+    }
 }
 
