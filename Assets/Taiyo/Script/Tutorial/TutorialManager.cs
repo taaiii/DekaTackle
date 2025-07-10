@@ -12,6 +12,11 @@ public class TutorialManager : MonoBehaviour
     public JudgeAttackObserver AttackObserver;
     public TutorialSceneTransition tutorialSceneTransition;
 
+    public GameObject fuki1;
+    public GameObject fuki2;
+    public GameObject muse1;
+    public GameObject muse2;
+
     public GameObject balloonUI;
     public TextMeshProUGUI tutorialText;
 
@@ -22,6 +27,13 @@ public class TutorialManager : MonoBehaviour
     public TutorialTextData textData;
 
     private bool IsSpown = false;
+    private float textCount = 0;
+    private float changeImageCount = 0;
+
+    const float TextInterval = 3f;
+    public float switchInterval = 0.5f;     // 切り替え間隔（秒）
+
+    private bool showFirst = true;
 
     void Awake()
     {
@@ -36,6 +48,14 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
+        // 初期表示の設定
+        fuki1.SetActive(true);
+        fuki2.SetActive(false);
+        muse1.SetActive(true);
+        muse2.SetActive(false);
+        // 指定時間ごとに切り替え
+        InvokeRepeating("SwitchObjects", switchInterval, switchInterval);
+
         // ScriptableObjectから変換
         stepTextMap = new Dictionary<TutorialStep, string>();
         foreach (var entry in textData.tutorialSteps)
@@ -46,6 +66,8 @@ public class TutorialManager : MonoBehaviour
 
         currentStep = TutorialStep.Step1_1;
         ShowBalloon(currentStep);
+
+        InvokeRepeating("SwitchSprite", 0f, switchInterval);
     }
 
     void Update()
@@ -195,7 +217,7 @@ public class TutorialManager : MonoBehaviour
     //テキスト送り
     void NextText()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (AutoNextText())
         {
             currentStep++;
             ShowBalloon(currentStep);
@@ -210,7 +232,7 @@ public class TutorialManager : MonoBehaviour
 
     void SerectNextText(TutorialStep step)
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (AutoNextText())
         {
             currentStep = step;
             ShowBalloon(currentStep);
@@ -288,4 +310,23 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    bool AutoNextText()
+    {
+        textCount += Time.deltaTime;
+        if(textCount > TextInterval)
+        {
+            textCount = 0;
+            return true;
+        }
+        return false;
+    }
+
+    void SwitchObjects()
+    {
+        showFirst = !showFirst;
+        fuki1.SetActive(showFirst);
+        fuki2.SetActive(!showFirst);
+        muse1.SetActive(showFirst);
+        muse2.SetActive(!showFirst);
+    }
 }

@@ -224,16 +224,6 @@ public class TutorialEnemyAttackManager : MonoBehaviour
 
         while (playerStates.isCollision)
         {
-
-            if (inFever == 1)
-            {
-                DogezaImages.SetActive(false);
-                checkKeyCoroutine = null;
-                sePlayer.StopSE();
-                playerStates.isCollision = false;
-                Debug.Log("inFever‚ª1‚É‚È‚Á‚½‚Ì‚Å’†’f");
-                yield break;
-            }
             if (judgeAttackObserver.GetHowDogeza())
             {
                 if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J))

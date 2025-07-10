@@ -609,7 +609,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: aaaaaaaaaaaaaaaaaa
+  m_text: oiiaiouiiiaio
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c6f93ad26a3a0c4095bd329493a1e1e, type: 2}
   m_sharedMaterial: {fileID: -8269667884233899107, guid: 1c6f93ad26a3a0c4095bd329493a1e1e, type: 2}
@@ -702,7 +702,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -109, y: 188}
+  m_AnchoredPosition: {x: 0.0000000086147, y: 194}
   m_SizeDelta: {x: 1560.3159, y: 83.7771}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &336291236
@@ -1229,7 +1229,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: fcd0ebfd13f113048802cb8a2bd6e66a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1250,7 +1250,7 @@ Transform:
   m_GameObject: {fileID: 589590363}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.85, y: -3.62, z: 0}
+  m_LocalPosition: {x: -0.87, y: -3.62, z: 0}
   m_LocalScale: {x: 1.25, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1602,7 +1602,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 41a02a3533d17684fbbd5034d4b2a51a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1623,7 +1623,7 @@ Transform:
   m_GameObject: {fileID: 807360849}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.85, y: -3.62, z: 0}
+  m_LocalPosition: {x: -0.87, y: -3.62, z: 0}
   m_LocalScale: {x: 1.25, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2518,8 +2518,8 @@ Transform:
   m_GameObject: {fileID: 1673953802}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.94, y: -2.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 7.53, y: -2.73, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2686,8 +2686,8 @@ Transform:
   m_GameObject: {fileID: 1769927029}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.94, y: -2.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 7.53, y: -2.73, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2726,10 +2726,15 @@ MonoBehaviour:
   MoveL: {fileID: 1560016525}
   AttackObserver: {fileID: 1192037594}
   tutorialSceneTransition: {fileID: 419624889}
+  fuki1: {fileID: 589590363}
+  fuki2: {fileID: 807360849}
+  muse1: {fileID: 1673953802}
+  muse2: {fileID: 1769927029}
   balloonUI: {fileID: 589590363}
   tutorialText: {fileID: 289506779}
   currentStep: 0
   textData: {fileID: 11400000, guid: a6af10af7048560459b8637b569c4ab1, type: 2}
+  switchInterval: 0.2
 --- !u!4 &1805626902
 Transform:
   m_ObjectHideFlags: 0
