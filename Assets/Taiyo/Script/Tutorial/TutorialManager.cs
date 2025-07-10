@@ -28,7 +28,6 @@ public class TutorialManager : MonoBehaviour
 
     private bool IsSpown = false;
     private float textCount = 0;
-    private float changeImageCount = 0;
 
     const float TextInterval = 3f;
     public float switchInterval = 0.5f;     // êÿÇËë÷Ç¶ä‘äuÅiïbÅj
@@ -66,8 +65,6 @@ public class TutorialManager : MonoBehaviour
 
         currentStep = TutorialStep.Step1_1;
         ShowBalloon(currentStep);
-
-        InvokeRepeating("SwitchSprite", 0f, switchInterval);
     }
 
     void Update()

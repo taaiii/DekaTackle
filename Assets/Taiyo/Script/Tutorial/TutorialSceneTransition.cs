@@ -1,42 +1,3 @@
-//using UnityEngine;
-//using UnityEngine.UI;
-//using UnityEngine.SceneManagement;
-//using System.Collections;
-
-//public class TutorialSceneTransition : MonoBehaviour
-//{
-//    public Image fadeImage;
-//    public float fadeDuration = 1.0f;
-
-//    public void FadeAndChangeScene(string sceneName)
-//    {
-//        StartCoroutine(FadeOutAndLoadScene(sceneName));
-//    }
-
-//    // フェードイン処理
-//    private IEnumerator FadeOutAndLoadScene(string sceneName)
-//    {
-//       //α値加算用
-//        float timer = 0f;
-//        Color color = fadeImage.color;
-
-//        while (timer < fadeDuration)
-//        {
-//            timer += Time.deltaTime;
-//            color.a = Mathf.Lerp(0, 1, timer / fadeDuration);   //timerが1を超えないように割り算でする
-//            color.a = Mathf.Clamp01(color.a);   //1を超えると１に直す
-//            fadeImage.color = color;
-//            yield return null;
-//        }
-
-//        //1秒待機（完全に黒い状態）
-//        yield return new WaitForSeconds(1f);
-
-//        // シーン切り替え
-//        SceneManager.LoadScene(sceneName);
-//    }
-//}
-
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -103,5 +64,30 @@ public class TutorialSceneTransition : MonoBehaviour
         fadeImage.color = new Color(0f, 0f, 0f, 1f); // 黒で始める
         yield return StartCoroutine(Fade(1f, 0f));    // 黒→透明
     }
+
+
+    public void ToneDown()
+    {
+        StartCoroutine(Fadetone(0f, 0.7f));    // 黒→透明
+    }
+    private IEnumerator Fadetone(float startAlpha, float endAlpha)
+    {
+        float timer = 0f;
+        Color color = fadeImage.color;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            float t = Mathf.Clamp01(timer / fadeDuration);
+            color.a = Mathf.Lerp(startAlpha, endAlpha, t);
+            fadeImage.color = color;
+            yield return null;
+        }
+
+        color.a = endAlpha;
+        fadeImage.color = color;
+    }
+
+
 }
 
