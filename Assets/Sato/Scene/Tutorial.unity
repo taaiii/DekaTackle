@@ -611,8 +611,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: aaaaaaaaaaaaaaaaaa
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4238823b21df9ae46b51ebebedfe10d8, type: 2}
-  m_sharedMaterial: {fileID: -4030060346524155405, guid: 4238823b21df9ae46b51ebebedfe10d8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1c6f93ad26a3a0c4095bd329493a1e1e, type: 2}
+  m_sharedMaterial: {fileID: -8269667884233899107, guid: 1c6f93ad26a3a0c4095bd329493a1e1e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -820,6 +820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 1841945844}
   fadeDuration: 1
+  waitOnBlack: 1
 --- !u!4 &419624890
 Transform:
   m_ObjectHideFlags: 0

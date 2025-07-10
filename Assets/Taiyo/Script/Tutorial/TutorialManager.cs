@@ -55,13 +55,7 @@ public class TutorialManager : MonoBehaviour
         switch (currentStep)
         {
             case TutorialStep.Step1_1:
-                NextText();
-                break;
             case TutorialStep.Step1_2:
-                NextText();
-                tutorialSceneTransition.FadeAndLoadScene("Main Scene 2");
-                break;
-
             case TutorialStep.Step1_3:
             case TutorialStep.Step1_4:
             case TutorialStep.Step1_5:
@@ -151,10 +145,10 @@ public class TutorialManager : MonoBehaviour
 
                 break;
             case TutorialStep.Step3_1:
+                AttackObserver.SetIsDogeza(true);
                 NextText();
                 break;
             case TutorialStep.Step3_2_FadeIn:
-                AttackObserver.SetIsDogeza(true);
                 NextText();
                 break;
 
@@ -177,7 +171,7 @@ public class TutorialManager : MonoBehaviour
                 NextText();
                 break;
             case TutorialStep.StepComplate:
-
+                tutorialSceneTransition.FadeAndLoadScene("Main Scene 2");
                 break;
         }
     }
