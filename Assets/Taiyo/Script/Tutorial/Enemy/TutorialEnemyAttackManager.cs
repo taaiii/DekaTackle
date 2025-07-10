@@ -34,7 +34,6 @@ public class TutorialEnemyAttackManager : MonoBehaviour
     private GameObject player;
     private Coroutine checkKeyCoroutine = null;
     private float successeTimer = 0;
-    private bool isOkAttack = false;
 
     //”»’è’Ê’m
     public JudgeAttackObserver judgeAttackObserver;
@@ -235,7 +234,6 @@ public class TutorialEnemyAttackManager : MonoBehaviour
                 Debug.Log("inFever‚ª1‚É‚È‚Á‚½‚Ì‚Å’†’f");
                 yield break;
             }
-            Debug.Log(judgeAttackObserver.GetHowDogeza());
             if (judgeAttackObserver.GetHowDogeza())
             {
                 if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.J))

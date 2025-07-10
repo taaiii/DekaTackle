@@ -19,7 +19,6 @@ public class TutorialMoveL : MonoBehaviour
             transform.position += move;
         }
 
-        Debug.Log(lifeCount);
         if (lifeCount > lifeTime)
         {
             Debug.Log("É~ÉX");
