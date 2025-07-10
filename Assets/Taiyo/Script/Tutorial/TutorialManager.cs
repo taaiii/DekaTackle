@@ -10,6 +10,7 @@ public class TutorialManager : MonoBehaviour
     public TutorialMoveR MoveR;
     public TutorialMoveL MoveL;
     public JudgeAttackObserver AttackObserver;
+    public TutorialSceneTransition tutorialSceneTransition;
 
     public GameObject balloonUI;
     public TextMeshProUGUI tutorialText;
@@ -27,6 +28,7 @@ public class TutorialManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            DontDestroyOnLoad(gameObject);
             return;
         }
         Instance = this;
@@ -54,15 +56,19 @@ public class TutorialManager : MonoBehaviour
         {
             case TutorialStep.Step1_1:
                 NextText();
-
                 break;
             case TutorialStep.Step1_2:
+                NextText();
+                tutorialSceneTransition.FadeAndLoadScene("Main Scene 2");
+                break;
+
             case TutorialStep.Step1_3:
             case TutorialStep.Step1_4:
             case TutorialStep.Step1_5:
             case TutorialStep.Step1_6:
                 NextText();
                 break;
+
             case TutorialStep.Step1_7:
 
                 //É`ÉÖÅ[ÉgÉäÉAÉã1ÇÃìGÇçÏê¨
@@ -81,46 +87,36 @@ public class TutorialManager : MonoBehaviour
                 //Ç±Ç§Ç∞Ç´OK 
                 AttackObserver.SetOkAttack(true);
 
-                //çUåÇÇ≥ÇÍÇΩÇ©ÅH
+                //çUåÇÇµÇΩÇ©ÅH
                 if (AttackObserver.GetIsAttack())
                 {
-                    //çUåÇÇÕê¨å˜ÇµÇΩÇ©ÅH
-                    if (AttackObserver.GetSuccess())
-                    {
-                        AutoSerectNextText(TutorialStep.Step1_11_Success);
-                        AttackObserver.SetOkAttack(false);
-                        ShowBalloon(currentStep);
-                    }
-                    else
-                    {
-                        AutoSerectNextText(TutorialStep.Step1_13_Fail_1);
-                        AttackObserver.SetOkAttack(false);
-                        ShowBalloon(currentStep);
-                    }
+                    //çUåÇÇÃê≥åÎèàóù
+                    AttackState_1Result();
                 }
                 break;
+
             case TutorialStep.Step1_11_Success:
 
                 NextText();
                 IsSpown = false;    //éüÇÃçÏê¨ÇÃÇΩÇﬂfalseÇ…
 
-
                 break;
             case TutorialStep.Step1_12:
 
                 SerectNextText(TutorialStep.Step2_1);
-                ShowBalloon(currentStep);
                 AttackObserver.SetIsAttack(false);
 
                 break;
             case TutorialStep.Step1_13_Fail_1:
                 NextText(); 
                 break;
+
             case TutorialStep.Step1_14_Fail_2:
 
                 AttackObserver.SetIsAttack(false);
                 SerectNextText(TutorialStep.Step1_10_Tackle);
                 break;
+
             case TutorialStep.Step2_1:
 
                 SpwawnEnemyByState2();
@@ -128,29 +124,14 @@ public class TutorialManager : MonoBehaviour
                 //Ç±Ç§Ç∞Ç´OK 
                 AttackObserver.SetOkAttack(true);
 
-                //çUåÇÇ≥ÇÍÇΩÇ©ÅH
+                //çUåÇÇµÇΩÇ©ÅH
                 if (AttackObserver.GetIsAttack())
                 {
-                    //çUåÇÇÕê¨å˜ÇµÇΩÇ©ÅH
-                    if (AttackObserver.GetSuccess())
-                    {
-                        AutoSerectNextText(TutorialStep.Step2_2_Success);
-                        AttackObserver.SetOkAttack(false);
-                        ShowBalloon(currentStep);
-                    }
-                    else
-                    {
-                        AutoSerectNextText(TutorialStep.Step2_3_Fail_1);
-                        AttackObserver.SetOkAttack(false);
-                        ShowBalloon(currentStep);
-                    }
+                    AttackState_2Result();
                 }
 
-                //çsÇ´âﬂÇ¨èàóù
-                if (MoveL.GetIsMiss())
-                {
-                    AutoSerectNextText(TutorialStep.Step2_3_Fail_1);
-                }
+                //çsÇ´âﬂÇ¨Ç©ämîF
+                AttackState_2PassEnemy();
                 break;
 
             case TutorialStep.Step2_2_Success:
@@ -193,9 +174,10 @@ public class TutorialManager : MonoBehaviour
             case TutorialStep.Step3_8:
             case TutorialStep.Step3_9:
             case TutorialStep.Step3_10:
+                NextText();
+                break;
             case TutorialStep.StepComplate:
 
-                NextText();
                 break;
         }
     }
@@ -269,6 +251,46 @@ public class TutorialManager : MonoBehaviour
         {
             IsSpown = true;
             EnemyManager.SpawnState2();
+        }
+    }
+
+    void AttackState_1Result()
+    {
+        //çUåÇÇÕê¨å˜ÇµÇΩÇ©ÅH
+        if (AttackObserver.GetSuccess())
+        {
+            AutoSerectNextText(TutorialStep.Step1_11_Success);
+            AttackObserver.SetOkAttack(false);
+            ShowBalloon(currentStep);
+        }
+        else
+        {
+            AutoSerectNextText(TutorialStep.Step1_13_Fail_1);
+            AttackObserver.SetOkAttack(false);
+            ShowBalloon(currentStep);
+        }
+    }
+    void AttackState_2Result()
+    {
+        //çUåÇÇÕê¨å˜ÇµÇΩÇ©ÅH
+        if (AttackObserver.GetSuccess())
+        {
+            AutoSerectNextText(TutorialStep.Step2_2_Success);
+            AttackObserver.SetOkAttack(false);
+            ShowBalloon(currentStep);
+        }
+        else
+        {
+            AutoSerectNextText(TutorialStep.Step2_3_Fail_1);
+            AttackObserver.SetOkAttack(false);
+            ShowBalloon(currentStep);
+        }
+    }
+    void AttackState_2PassEnemy()
+    {
+        if (MoveL.GetIsMiss())
+        {
+            AutoSerectNextText(TutorialStep.Step2_3_Fail_1);
         }
     }
 
