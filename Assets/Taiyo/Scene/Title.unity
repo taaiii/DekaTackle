@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sePlayer: {fileID: 455939750}
-  nextScene: test
+  nextScene: Tutorial
   fadeManager: {fileID: 442213861}
 --- !u!1 &1172933848
 GameObject:

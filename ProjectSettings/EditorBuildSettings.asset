@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Taiyo/Scene/Title.unity
     guid: 0b52b1e0519714e4f88ac0387e70bc90
   - enabled: 1
+    path: Assets/Sato/Scene/Tutorial.unity
+    guid: 3db5f99f0d278184b9877c71cd1dc364
+  - enabled: 1
     path: Assets/Taiyo/Scene/Main Scene 2.unity
     guid: a516803769d530b4db488f21679c26b0
   - enabled: 1
