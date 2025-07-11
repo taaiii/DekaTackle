@@ -80,7 +80,7 @@ public class TutorialEnemyAttackManager : MonoBehaviour
         {
             if (inFever == 0)
             {
-                if (Input.GetKeyUp(KeyCode.A))
+                if (Input.GetKeyDown(KeyCode.A))
                 {
                     ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
 
@@ -91,7 +91,7 @@ public class TutorialEnemyAttackManager : MonoBehaviour
                     }
                 }
 
-                if (Input.GetKeyUp(KeyCode.D))
+                if (Input.GetKeyDown(KeyCode.D))
                 {
                     ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag);
 
@@ -105,7 +105,7 @@ public class TutorialEnemyAttackManager : MonoBehaviour
             }
             else if (inFever == 1)
             {
-                if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
                 {
                     if (shakeCamera != null)
                     {
@@ -242,19 +242,20 @@ public class TutorialEnemyAttackManager : MonoBehaviour
                         break;
                     }
                 }
-            }
-            else
-            {
-                isSorry = false;
-                if (holdTime > 0f)
+                else
                 {
-                    Debug.Log("キーが離されたのでカウントリセット");
+                    isSorry = false;
+                    if (holdTime > 0f)
+                    {
+                        Debug.Log("キーが離されたのでカウントリセット");
+                    }
+
+                    currentScale.y = originalYScale;
+                    holdTime = 0f;
                 }
 
-                currentScale.y = originalYScale;
-                holdTime = 0f;
-            }
 
+            }
             MaskImages.transform.localScale = currentScale;
             yield return null;
         }

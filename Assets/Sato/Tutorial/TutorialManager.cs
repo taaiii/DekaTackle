@@ -29,9 +29,13 @@ public class TutorialManager : MonoBehaviour
     private bool IsSpown = false;
     private float textCount = 0;
 
-    const float TextInterval = 3f;
+    public float TextInterval = 3f;
     public float switchInterval = 0.5f;     // 切り替え間隔（秒）
 
+    const float DelayToneTime = 1f;
+    float ToneCount = 0f;
+
+    private bool isViewText = false;
     private bool showFirst = true;
 
     void Awake()
@@ -65,6 +69,7 @@ public class TutorialManager : MonoBehaviour
 
         currentStep = TutorialStep.Step1_1;
         ShowBalloon(currentStep);
+
     }
 
     void Update()
@@ -150,6 +155,7 @@ public class TutorialManager : MonoBehaviour
             case TutorialStep.Step2_2_Success:
 
                 SerectNextText(TutorialStep.Step3_1);
+
                 break;
             case TutorialStep.Step2_3_Fail_1:
                 NextText();
@@ -165,6 +171,13 @@ public class TutorialManager : MonoBehaviour
                 break;
             case TutorialStep.Step3_1:
                 AttackObserver.SetIsDogeza(true);
+
+                ToneCount += Time.deltaTime;
+                if(ToneCount > DelayToneTime)
+                {
+                    tutorialSceneTransition.ToneDown();
+                }
+
                 NextText();
                 break;
             case TutorialStep.Step3_2_FadeIn:
@@ -177,10 +190,14 @@ public class TutorialManager : MonoBehaviour
                 NextText();
                 break;
             case TutorialStep.Step3_6_FadeOut:
-                    AttackObserver.SetHowDogeza(true);
-                if(AttackObserver.GetIsClearDogeza())
+                tutorialSceneTransition.ToneUp();
+                AttackObserver.SetHowDogeza(true);
+                isViewText = true;
+
+                if (AttackObserver.GetIsClearDogeza())
                 {
                     AutoSerectNextText(TutorialStep.Step3_7);
+                    isViewText = false;
                 }
                 break;
             case TutorialStep.Step3_7:
@@ -190,8 +207,14 @@ public class TutorialManager : MonoBehaviour
                 NextText();
                 break;
             case TutorialStep.StepComplate:
-                tutorialSceneTransition.FadeAndLoadScene("Main Scene 2");
+                tutorialSceneTransition.FadeAndLoadScene("test");
+                //チュートリアルでの点数を初期化
+                PointCounter.Instance.Point = 0;
                 break;
+        }
+        if (isViewText)
+        {
+            HideBalloon();
         }
     }
 
@@ -208,13 +231,14 @@ public class TutorialManager : MonoBehaviour
     //吹き出し削除
     void HideBalloon()
     {
-        balloonUI.SetActive(false);
+        fuki1.SetActive(false);
+        fuki2.SetActive(false);
     }
 
     //テキスト送り
     void NextText()
     {
-        if (AutoNextText())
+        if (AutoNextText() || Input.GetKeyDown("d") || Input.GetKeyDown("a"))
         {
             currentStep++;
             ShowBalloon(currentStep);
@@ -229,7 +253,7 @@ public class TutorialManager : MonoBehaviour
 
     void SerectNextText(TutorialStep step)
     {
-        if (AutoNextText())
+        if (AutoNextText() || Input.GetKeyDown("d") || Input.GetKeyDown("a"))
         {
             currentStep = step;
             ShowBalloon(currentStep);
@@ -310,7 +334,7 @@ public class TutorialManager : MonoBehaviour
     bool AutoNextText()
     {
         textCount += Time.deltaTime;
-        if(textCount > TextInterval)
+        if(textCount > TextInterval || Input.GetKeyDown("d") || Input.GetKeyDown("a"))
         {
             textCount = 0;
             return true;
@@ -320,10 +344,13 @@ public class TutorialManager : MonoBehaviour
 
     void SwitchObjects()
     {
-        showFirst = !showFirst;
-        fuki1.SetActive(showFirst);
-        fuki2.SetActive(!showFirst);
-        muse1.SetActive(showFirst);
-        muse2.SetActive(!showFirst);
+        if(!isViewText)
+        {
+            showFirst = !showFirst;
+            fuki1.SetActive(showFirst);
+            fuki2.SetActive(!showFirst);
+            muse1.SetActive(showFirst);
+            muse2.SetActive(!showFirst);
+        }
     }
 }
