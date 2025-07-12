@@ -1,12 +1,13 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
+using static LockManager; // ← buttonlock enum をインポート
 
 public class SceneChange : MonoBehaviour
 {
     public SEPlayer sePlayer;
     public string nextScene = "Main Scene 2";
-    public FadeManager fadeManager; // ← 追加
+    public FadeManager fadeManager;
 
     private bool isLoading = false;
 
@@ -14,16 +15,20 @@ public class SceneChange : MonoBehaviour
     {
         if ((Input.GetKeyDown("d") || Input.GetKeyDown("a")) && !isLoading)
         {
-            isLoading = true;
+            // LockManager の state をチェック
+            if (LockManager.state == buttonlock.OPEN)
+            {
+                isLoading = true;
 
-            if (nextScene == "test")
-            {
-                if (sePlayer != null) sePlayer.PlayTackleSE();
-                StartCoroutine(ToMain());
-            }
-            else
-            {
-                LoadNextScene();
+                if (nextScene == "test")
+                {
+                    if (sePlayer != null) sePlayer.PlayTackleSE();
+                    StartCoroutine(ToMain());
+                }
+                else
+                {
+                    LoadNextScene();
+                }
             }
         }
     }
@@ -42,7 +47,7 @@ public class SceneChange : MonoBehaviour
     {
         if (fadeManager != null)
         {
-            yield return fadeManager.FadeIn(2f); // ← ここでフェードイン
+            yield return fadeManager.FadeIn(2f);
         }
         else
         {

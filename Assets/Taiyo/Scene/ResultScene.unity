@@ -380,9 +380,9 @@ MonoBehaviour:
   SilverScore2: {fileID: 732470776}
   BronzeScore1: {fileID: 781163548}
   BronzeScore2: {fileID: 434564151}
-  GoldPoint: 35
-  SilverPoint: 20
-  BronzePoint: 10
+  GoldPoint: 45
+  SilverPoint: 35
+  BronzePoint: 30
 --- !u!4 &302123420
 Transform:
   m_ObjectHideFlags: 0
