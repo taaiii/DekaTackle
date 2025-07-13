@@ -688,8 +688,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1172933849}
-  - {fileID: 407164808}
   - {fileID: 104360193}
+  - {fileID: 407164808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sePlayer: {fileID: 455939750}
-  nextScene: Tutorial
+  nextScene: test
   fadeManager: {fileID: 442213861}
 --- !u!1 &1172933848
 GameObject:

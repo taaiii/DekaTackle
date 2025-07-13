@@ -11,6 +11,10 @@ public class LockManager : MonoBehaviour
     // 他のスクリプトからアクセス可能なロック状態
     public static buttonlock state = buttonlock.LOCK;
 
+    private void Start()
+    {
+        state = buttonlock.LOCK;
+    }
     void Update()
     {
         // oキーでロック解除
