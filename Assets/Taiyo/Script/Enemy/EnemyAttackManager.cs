@@ -1,18 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyAttackManager : MonoBehaviour
 {
-    //以下土下座ゲージ用オブジェクトと変数
-    public float scaleSpeed = 2f;               // 拡大スピード
-
+    public float scaleSpeed = 2f;
     private float originalYScale;
     public float waitTime;
     public float DogezaImagesMaxSize;
     [SerializeField] private GameObject DogezaImages;
     [SerializeField] private GameObject MaskImages;
     [SerializeField] private GameObject KariMiss;
-    //
+
     public float attackRange = 5f;
     public string leftEnemyTag = "EnemyL";
     public string rightEnemyTag = "EnemyR";
@@ -22,67 +21,43 @@ public class EnemyAttackManager : MonoBehaviour
     public bool isSorry = false;
     private ShakeCamera shakeCamera;
 
-    public GameObject tackleSuccesseImage;
-    public GameObject tackleFailureImage;
+    public GameObject tackleSuccessImageL; // ← A用
+    public GameObject tackleSuccessImageR; // ← D用
 
     public GameObject tackleSound;
 
-    public float DrawimageTime = 0.5f;
+    public float DrawimageTime = 0.2f;
 
     public int inFever = 0;
 
     private GameObject player;
     private Coroutine checkKeyCoroutine = null;
-    private float successeTimer = 0;
-    //private float FailTimer = 0;
 
     void Start()
     {
-        originalYScale = transform.localScale.y;//マスクの初期の大きさの保存
-        tackleSuccesseImage.SetActive(false);
-        tackleFailureImage.SetActive(false);
+        originalYScale = transform.localScale.y;
+        tackleSuccessImageL.SetActive(false);
+        tackleSuccessImageR.SetActive(false);
         player = GameObject.FindWithTag("Player");
 
-        // 追加：CameraShakeを取得
         shakeCamera = Camera.main.GetComponent<ShakeCamera>();
         if (shakeCamera == null)
         {
-            Debug.LogWarning("ShakeCameraコンポーネントがMainCameraにありません！");
+            Debug.LogWarning("ShakeCameraがMainCameraにありません！");
         }
 
-        successeTimer = 0;
-        tackleSuccesseImage.SetActive(false);
-        tackleFailureImage.SetActive(false);
-        player = GameObject.FindWithTag("Player");
-
-        successeTimer = 0;
-        //FailTimer = 0;
         StartCoroutine(DelayedProcessCoroutine());
     }
 
     void Update()
     {
-        if (tackleSuccesseImage == true)
-        {
-            successeTimer += Time.deltaTime;
-            //tackleSuccesseImage.transform.position = new Vector3( successeTimer * 3, 0, 0 );
-            if (successeTimer > DrawimageTime)
-            {
-                tackleSuccesseImage.SetActive(false);
-                successeTimer = 0;
-            }
-        }
-
-        // isCollision = false の時のみ攻撃入力を受け付ける
         if (!playerStates.isCollision)
         {
             if (inFever == 0)
             {
                 if (Input.GetKeyUp(KeyCode.A))
                 {
-                    ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag);
-
-                    // 画面揺らす（揺れが設定されていれば）
+                    ProcessInput(Vector3.left, leftEnemyTag, rightEnemyTag, "A");
                     if (shakeCamera != null)
                     {
                         shakeCamera.TriggerShake(0.3f, 0.15f);
@@ -91,24 +66,32 @@ public class EnemyAttackManager : MonoBehaviour
 
                 if (Input.GetKeyUp(KeyCode.D))
                 {
-                    ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag);
-
+                    ProcessInput(Vector3.right, rightEnemyTag, leftEnemyTag, "D");
                     if (shakeCamera != null)
                     {
                         shakeCamera.TriggerShake(0.3f, 0.15f);
-
                     }
                 }
-
             }
             else if (inFever == 1)
             {
-                if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+                if (Input.GetKeyUp(KeyCode.A))
                 {
                     if (shakeCamera != null)
                     {
                         shakeCamera.TriggerShake(0.3f, 0.15f);
-                        OnTackleSuccess();
+                        OnTackleSuccess("A");
+                        playerStates.isCollision = false;
+                        PointCounter.Instance.Point++;
+                    }
+                }
+
+                if (Input.GetKeyUp(KeyCode.D))
+                {
+                    if (shakeCamera != null)
+                    {
+                        shakeCamera.TriggerShake(0.3f, 0.15f);
+                        OnTackleSuccess("D");
                         playerStates.isCollision = false;
                         PointCounter.Instance.Point++;
                     }
@@ -117,7 +100,7 @@ public class EnemyAttackManager : MonoBehaviour
         }
     }
 
-    void ProcessInput(Vector3 inputDirection, string inputTag, string oppositeTag)
+    void ProcessInput(Vector3 inputDirection, string inputTag, string oppositeTag, string key)
     {
         GameObject inputEnemy = GetNearestEnemy(inputTag, inputDirection);
         GameObject oppositeEnemy = GetNearestEnemy(oppositeTag, -inputDirection);
@@ -129,19 +112,16 @@ public class EnemyAttackManager : MonoBehaviour
         {
             if (inputDist <= oppositeDist)
             {
-                // 成功：正しい敵を攻撃
-                OnTackleSuccess();
+                OnTackleSuccess(key);
                 playerStates.isCollision = false;
                 HandleAttack(inputEnemy);
                 return;
             }
         }
 
-        // ミス：遠い敵 or 敵なし
         playerStates.isCollision = true;
         Debug.Log("ミス：遠い敵を攻撃 or 敵がいない");
 
-        // コルーチンが動いていなければ開始
         if (checkKeyCoroutine == null)
         {
             checkKeyCoroutine = StartCoroutine(CheckKeyPressCoroutine());
@@ -157,8 +137,6 @@ public class EnemyAttackManager : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             Vector3 toEnemy = enemy.transform.position - player.transform.position;
-
-            // 方向が逆ならスキップ
             if (Vector3.Dot(toEnemy.normalized, direction) < 0.5f) continue;
 
             float dist = toEnemy.magnitude;
@@ -176,20 +154,33 @@ public class EnemyAttackManager : MonoBehaviour
     {
         if (enemy != null)
         {
-            tackleSuccesseImage.SetActive(true);
             Debug.Log($"敵を倒した: {enemy.name}");
             PointCounter.Instance.Point++;
             Destroy(enemy);
         }
     }
-    // 例：EnemyAttackManager.cs の中
-    void OnTackleSuccess()
+
+    void OnTackleSuccess(string key)
     {
-        // ダメージ処理など…
         sePlayer.SetUseOneShot(true);
-        sePlayer.PlayTackleSE(); // SEを鳴らす
+        sePlayer.PlayTackleSE();
+
+        if (key == "A")
+        {
+            StartCoroutine(ShowSuccessImage(tackleSuccessImageL));
+        }
+        else if (key == "D")
+        {
+            StartCoroutine(ShowSuccessImage(tackleSuccessImageR));
+        }
     }
 
+    private IEnumerator ShowSuccessImage(GameObject image)
+    {
+        image.SetActive(true);
+        yield return new WaitForSeconds(DrawimageTime);
+        image.SetActive(false);
+    }
 
     private IEnumerator CheckKeyPressCoroutine()
     {
@@ -198,7 +189,7 @@ public class EnemyAttackManager : MonoBehaviour
         sePlayer.PlaysippaiSE();
 
         float holdTime = 0f;
-        float duration = 2.0f; // 2秒間長押しで成功
+        float duration = 2.0f;
         float startY = originalYScale;
         float targetY = originalYScale + 6.0f;
 
@@ -224,7 +215,6 @@ public class EnemyAttackManager : MonoBehaviour
                 isSorry = true;
                 holdTime += Time.deltaTime;
 
-                // Lerp でスケールを補間
                 float t = Mathf.Clamp01(holdTime / duration);
                 Vector3 scale = MaskImages.transform.localScale;
                 scale.y = Mathf.Lerp(startY, targetY, t);
@@ -240,14 +230,7 @@ public class EnemyAttackManager : MonoBehaviour
             }
             else
             {
-                // キーを離したとき：リセット
                 isSorry = false;
-
-                if (holdTime > 0f)
-                {
-                    Debug.Log("キーが離されたのでカウントリセット");
-                }
-
                 holdTime = 0f;
 
                 Vector3 scale = MaskImages.transform.localScale;
@@ -263,7 +246,6 @@ public class EnemyAttackManager : MonoBehaviour
         sePlayer.StopSE();
         Debug.Log("CheckKeyPressCoroutine: 終了");
     }
-
 
     private IEnumerator DelayedProcessCoroutine()
     {
