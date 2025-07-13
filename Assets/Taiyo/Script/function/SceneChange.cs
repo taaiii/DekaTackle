@@ -20,7 +20,7 @@ public class SceneChange : MonoBehaviour
             {
                 isLoading = true;
 
-                if (nextScene == "test")
+                if (nextScene == "Tutorial")
                 {
                     if (sePlayer != null) sePlayer.PlayTackleSE();
                     StartCoroutine(ToMain());
