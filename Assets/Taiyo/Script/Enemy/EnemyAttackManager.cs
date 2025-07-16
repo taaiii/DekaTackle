@@ -250,6 +250,9 @@ public class EnemyAttackManager : MonoBehaviour
     private IEnumerator DelayedProcessCoroutine()
     {
         yield return new WaitForSeconds(60f);
+        inFever = 2;
+
+        yield return new WaitForSeconds(3f);
         inFever = 1;
 
         yield return new WaitForSeconds(10f);

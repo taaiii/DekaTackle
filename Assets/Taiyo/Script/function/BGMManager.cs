@@ -19,12 +19,12 @@ public class BGMManager : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= 60f && audioSource.clip != feverBGM)
+        if (timer >= 63f && audioSource.clip != feverBGM)
         {
             ChangeBGM(feverBGM);
         }
 
-        if (timer >= 70f)
+        if (timer >= 73f)
         {
             audioSource.Stop();
         }
