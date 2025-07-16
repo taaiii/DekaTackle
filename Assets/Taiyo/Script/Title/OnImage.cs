@@ -4,13 +4,17 @@ using UnityEngine.UI;
 public class TimedImageDisplay : MonoBehaviour
 {
     [SerializeField] private Image targetImage;
+    public AudioSource source;
 
     private float timer = 0f;
+    private bool hasPlayed = false;
 
-    public float ontime = 0f;
-    public float offtime = 0f;
+    public float ontime = 0.3f;  // 表示開始時間
+    public float offtime = 0.7f; // 表示終了時間
+
     void Start()
     {
+        source = GetComponent<AudioSource>();
         if (targetImage != null)
         {
             SetVisible(false); // 最初は非表示
@@ -27,11 +31,16 @@ public class TimedImageDisplay : MonoBehaviour
 
         if (timer >= ontime && timer < offtime)
         {
-            SetVisible(true);  // 0.3〜0.7秒の間は表示
+            SetVisible(true);  // 表示中
+            if (!hasPlayed)
+            {
+                source.Play();   // 一度だけ再生
+                hasPlayed = true;
+            }
         }
         else
         {
-            SetVisible(false); // それ以外は非表示
+            SetVisible(false);
         }
     }
 
