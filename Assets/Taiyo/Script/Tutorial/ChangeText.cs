@@ -3,18 +3,21 @@ using TMPro;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ChangeText : MonoBehaviour
 {
     public TextMeshProUGUI textA, textB, textC;
     public RawImage imageA, imageB;
     public VideoPlayer videoA, videoB;
+    public AudioSource audio;
 
     private int cnt = 0;
     private int prevCnt = -1; // ‘O‰ñ‚Ìcnt‚ğ•Û‘¶
 
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
         textC.gameObject.SetActive(false);
         UpdateView(); // ‰Šú•\¦ó‘Ô
         prevCnt = cnt;
@@ -74,6 +77,13 @@ public class ChangeText : MonoBehaviour
 
     public void LoadMainScene()
     {
+        StartCoroutine(waittackle());
+    }
+
+    IEnumerator waittackle()
+    {
+        audio.Play();
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("test");
     }
 }
