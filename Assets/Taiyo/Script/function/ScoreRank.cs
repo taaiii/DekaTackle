@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ScoreRank : MonoBehaviour
 {
@@ -38,30 +39,53 @@ public class ScoreRank : MonoBehaviour
 
     void ShowRank(int rank)
     {
-        // 全て非表示に
+        // 一旦すべて非表示
         RainbowScore1.SetActive(false); RainbowScore2.SetActive(false);
         GoldScore1.SetActive(false); GoldScore2.SetActive(false);
         SilverScore1.SetActive(false); SilverScore2.SetActive(false);
         BronzeScore1.SetActive(false); BronzeScore2.SetActive(false);
 
+        // 対応する画像を段階的に表示
+        StartCoroutine(ShowRankWithDelay(rank));
+    }
+
+    IEnumerator ShowRankWithDelay(int rank)
+    {
+        yield return new WaitForSeconds(0.7f); // 最初の表示まで待つ
+
         switch (rank)
         {
             case 1:
                 RainbowScore1.SetActive(true);
-                RainbowScore2.SetActive(true);
                 break;
             case 2:
                 GoldScore1.SetActive(true);
-                GoldScore2.SetActive(true);
                 break;
             case 3:
                 SilverScore1.SetActive(true);
-                SilverScore2.SetActive(true);
                 break;
             case 4:
                 BronzeScore1.SetActive(true);
+                break;
+        }
+
+        yield return new WaitForSeconds(0.7f); // 次の表示まで待つ
+
+        switch (rank)
+        {
+            case 1:
+                RainbowScore2.SetActive(true);
+                break;
+            case 2:
+                GoldScore2.SetActive(true);
+                break;
+            case 3:
+                SilverScore2.SetActive(true);
+                break;
+            case 4:
                 BronzeScore2.SetActive(true);
                 break;
         }
     }
+
 }

@@ -650,7 +650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 455939749}
-  tackleSE: {fileID: 8300000, guid: 17aecbed5e2d2f549bb9a7cfe923b0b9, type: 3}
+  tackleSE: {fileID: 8300000, guid: 18a655d22ce5c3141bf1200d50895924, type: 3}
   sippaiSE: {fileID: 8300000, guid: 0f025fc8055f67e47b607b318c9eb7bc, type: 3}
   useOneShot: 1
 --- !u!4 &455939751

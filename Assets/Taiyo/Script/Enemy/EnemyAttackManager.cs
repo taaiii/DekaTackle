@@ -200,13 +200,13 @@ public class EnemyAttackManager : MonoBehaviour
 
         while (playerStates.isCollision)
         {
-            if (inFever == 1)
+            if (inFever == 2)
             {
                 DogezaImages.SetActive(false);
                 checkKeyCoroutine = null;
                 sePlayer.StopSE();
                 playerStates.isCollision = false;
-                Debug.Log("inFeverが1になったので中断");
+                Debug.Log("inFeverが2になったので中断");
                 yield break;
             }
 
