@@ -188,6 +188,9 @@ public class EnemyAttackManager : MonoBehaviour
         sePlayer.SetUseOneShot(false);
         sePlayer.PlaysippaiSE();
 
+        //描画NG
+        DrawUiObserver.Instance.SetIsView(false);
+
         float holdTime = 0f;
         float duration = 2.0f;
         float startY = originalYScale;
@@ -225,6 +228,10 @@ public class EnemyAttackManager : MonoBehaviour
                     playerStates.isCollision = false;
                     Debug.Log("成功：FとJを2秒間同時に押した");
                     DogezaImages.SetActive(false);
+
+                    //描画OK
+                    DrawUiObserver.Instance.SetIsView(true);
+
                     break;
                 }
             }

@@ -17,5 +17,7 @@ public class ScoreDisplayText : MonoBehaviour
             lastScore = currentScore;
             textMeshProUGUI.text = currentScore.ToString();
         }
+
+        textMeshProUGUI.enabled = DrawUiObserver.Instance.GetIsView();
     }
 }
