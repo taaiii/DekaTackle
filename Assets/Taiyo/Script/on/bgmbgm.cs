@@ -49,6 +49,20 @@ public class bgmbgm : MonoBehaviour
             mainAudioSource.Stop();
             subAudioSource.Stop();
         }
+
+        //UI‚ªo‚Ä‚¢‚é‚©
+        if(DrawUiObserver.Instance.GetIsView())
+        {
+            //BGM‚Í—¬‚ê‚Ä‚¢‚é‚©–Â‚Á‚Ä‚¢‚é‚©
+            if(!mainAudioSource.isPlaying)
+            {
+                mainAudioSource.Play();
+            }
+        }
+        else
+        {
+            mainAudioSource.Pause();
+        }
     }
 
     void ChangeMainBGM(AudioClip newClip)
