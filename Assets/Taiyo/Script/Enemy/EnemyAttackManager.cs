@@ -8,6 +8,7 @@ public class EnemyAttackManager : MonoBehaviour
     private float originalYScale;
     public float waitTime;
     public float DogezaImagesMaxSize;
+    public AudioSource audiosource;
     [SerializeField] private GameObject DogezaImages;
     [SerializeField] private GameObject MaskImages;
     [SerializeField] private GameObject KariMiss;
@@ -35,6 +36,7 @@ public class EnemyAttackManager : MonoBehaviour
 
     void Start()
     {
+        audiosource = GetComponent<AudioSource>();
         originalYScale = transform.localScale.y;
         tackleSuccessImageL.SetActive(false);
         tackleSuccessImageR.SetActive(false);
@@ -212,6 +214,7 @@ public class EnemyAttackManager : MonoBehaviour
                 sePlayer.StopSE();
                 playerStates.isCollision = false;
                 Debug.Log("inFeverが2になったので中断");
+                audiosource.Play();
                 yield break;
             }
 
@@ -253,6 +256,7 @@ public class EnemyAttackManager : MonoBehaviour
         isSorry = false;
         checkKeyCoroutine = null;
         sePlayer.StopSE();
+        audiosource.Play();
         Debug.Log("CheckKeyPressCoroutine: 終了");
     }
 

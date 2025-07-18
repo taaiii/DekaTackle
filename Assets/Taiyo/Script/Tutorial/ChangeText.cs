@@ -7,18 +7,22 @@ using System.Collections;
 
 public class ChangeText : MonoBehaviour
 {
-    public TextMeshProUGUI textA, textB, textC;
+    public TextMeshProUGUI textA, textB, textC,textM;
     public RawImage imageA, imageB;
     public VideoPlayer videoA, videoB;
     public AudioSource audio;
+    public Image image;
+
 
     private int cnt = 0;
     private int prevCnt = -1; // ëOâÒÇÃcntÇï€ë∂
 
     private void Start()
     {
+        image.gameObject.SetActive(false);
         audio = GetComponent<AudioSource>();
         textC.gameObject.SetActive(false);
+        textM.gameObject.SetActive(false);
         UpdateView(); // èâä˙ï\é¶èÛë‘
         prevCnt = cnt;
     }
@@ -82,8 +86,12 @@ public class ChangeText : MonoBehaviour
 
     IEnumerator waittackle()
     {
+        videoA.Stop();
+        videoB.Stop();
+        image.gameObject.SetActive(true);
+        textM.gameObject.SetActive(true);
         audio.Play();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("test");
     }
 }
