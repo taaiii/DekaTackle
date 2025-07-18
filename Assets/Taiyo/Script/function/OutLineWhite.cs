@@ -12,9 +12,4 @@ public class OutLineWhite : MonoBehaviour
         text.fontMaterial.SetColor("_OutlineColor", Color.white);
         text.fontMaterial.SetFloat("_OutlineWidth", 0.4f);
     }
-
-    void Update()
-    {
-        text.enabled = DrawUiObserver.Instance.GetIsView();
-    }
 }

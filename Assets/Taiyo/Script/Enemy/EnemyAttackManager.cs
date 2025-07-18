@@ -205,6 +205,8 @@ public class EnemyAttackManager : MonoBehaviour
         {
             if (inFever == 2)
             {
+                //UI描画OK
+                DrawUiObserver.Instance.SetIsView(true);
                 DogezaImages.SetActive(false);
                 checkKeyCoroutine = null;
                 sePlayer.StopSE();
